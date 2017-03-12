@@ -24,4 +24,10 @@ class ClientTests(unittest.TestCase):
         with self.assertRaises(OctopartError):
             # TODO: get actual test account.
             client = OctopartClient(api_key='TEST_TOKEN')
-            client.match({'q': ["not", "a", "string"]})
+            client.match([{'q': ["not", "a", "string"]}])
+
+    def test_too_many_match_queries(self):
+        with self.assertRaises(ValueError):
+            client = OctopartClient(api_key='TEST_TOKEN')
+            queries = [{'q': 'fake-mpn'}] * 21
+            client.match(queries)

@@ -52,7 +52,7 @@ class BaseModel(Model):
     def is_valid_list(cls, list_):
         try:
             return all([cls(dict_).is_valid for dict_ in list_])
-        except ConversionError:
+        except (ConversionError, DataError):
             return False
 
 
