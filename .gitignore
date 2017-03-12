@@ -1,4 +1,5 @@
 .coverage
+build
 htmlcov
 venv
 *.egg-info

@@ -10,9 +10,7 @@ setuptools.setup(
     url="",
     description="Python client for Octopart API v3",
     long_description="",
-    packages=[
-        setuptools.find_packages(exclude=['contrib', 'docs', 'tests']),
-    ],
+    packages=setuptools.find_packages(exclude=['contrib', 'docs', 'tests']),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Web Environment",
