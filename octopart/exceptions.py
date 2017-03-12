@@ -1,0 +1,2 @@
+class OctopartError(Exception):
+    pass

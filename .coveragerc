@@ -1,0 +1,6 @@
+[run]
+source =
+    octopart/*
+omit =
+    venv/*
+    tests/*
