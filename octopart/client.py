@@ -102,7 +102,7 @@ class OctopartClient(object):
         return self._request('/parts/match', params=params)
 
     def search(self,
-               q="",
+               query,
                start=0,
                limit=10,
                sortby=(),
@@ -112,7 +112,9 @@ class OctopartClient(object):
         Search for parts, using more fields and filter options than 'match'.
 
         Args:
-            q (str): free-form keyword query
+            query (str): free-form keyword query
+
+        Kwargs:
             start (int): ordinal position of first result
             limit (int): maximum number of results to return
             sortby (list): [(fieldname, order)] list of tuples
@@ -144,7 +146,7 @@ class OctopartClient(object):
         }
 
         query = models.PartsSearchQuery({
-            'q': q,
+            'q': query,
             'start': start,
             'limit': limit,
             'sortby': sortby_param,

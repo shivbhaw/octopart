@@ -37,7 +37,7 @@ class APITests(unittest.TestCase):
             content_type='application/json'
         )
 
-        results = match(mpns=['RUM001L02T2CL'])
+        results = match(['RUM001L02T2CL'])
 
         self.assertEqual(len(results), 1)
         result = results[0]
@@ -78,7 +78,7 @@ class APITests(unittest.TestCase):
         )
 
         results = match(
-            mpns=['RUM001L02T2CL'],
+            ['RUM001L02T2CL'],
             specs=True,
             imagesets=True,
             descriptions=True)
@@ -134,7 +134,7 @@ class APITests(unittest.TestCase):
             content_type='application/json'
         )
 
-        result = search(q="DISTANCE METER, LASER, 100M")
+        result = search("DISTANCE METER, LASER, 100M")
         self.assertTrue(isinstance(result, PartsSearchResult))
 
         self.assertEqual(len(result.parts), 8)

@@ -18,7 +18,7 @@ from octopart.models import PartsSearchResult
 MAX_REQUEST_THREADS = 10
 
 
-def match(mpns=(),
+def match(mpns,
           sellers=None,
           specs=False,
           imagesets=False,
@@ -28,13 +28,15 @@ def match(mpns=(),
 
     Args:
         mpns (list): list of str MPNs
+
+    Kwargs:
         sellers (list): list of str part sellers
         specs (bool): whether to include specs for parts
         imagesets (bool): whether to include imagesets for parts
         descriptions (bool): whether to include descriptions for parts
 
     Returns:
-        list of `models.PartsMatchResponse` objects.
+        list of `models.PartsMatchResult` objects.
     """
     client = OctopartClient()
     unique_mpns = utils.unique(mpns)
@@ -77,15 +79,31 @@ def match(mpns=(),
     ]
 
 
-def search(q="",
+def search(query,
            start=0,
            limit=10,
            sortby=(),
            filter_fields=None,
            filter_queries=None):
+    """
+    Search Octopart for a general keyword (and optional filters).
+
+    Args:
+        query (str): Free-form keyword query
+
+    Kwargs:
+        start (int): Ordinal position of first result
+        limit (int): Maximum number of results to return
+        sortby (list): [(fieldname, order)] list of tuples
+        filter_fields (dict): {fieldname: value} dict
+        filter_queries (dict): {fieldname: value} dict
+
+    Returns:
+        list of `models.PartsSearchResult` objects.
+    """
     client = OctopartClient()
     response = client.search(
-        q=q,
+        query,
         start=start,
         limit=limit,
         sortby=sortby,
