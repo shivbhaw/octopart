@@ -101,9 +101,9 @@ class APITests(unittest.TestCase):
         imageset = part.imagesets[0]
         self.assertEqual(imageset.images, {
             'large_image': None,
-            'medium_image': 'https://sigma.octopart.com/67745388/image/Rohm-RUM001L02T2CL.jpg',  # nopep8
-            'small_image': 'https://sigma.octopart.com/66829790/image/Rohm-RUM001L02T2CL.jpg',  # nopep8
-            'swatch_image': 'https://sigma.octopart.com/23299222/image/Rohm-RUM001L02T2CL.jpg'  # nopep8
+            'medium_image': 'https://sigma.octopart.com/67745388/image/Rohm-RUM001L02T2CL.jpg',  # noqa
+            'small_image': 'https://sigma.octopart.com/66829790/image/Rohm-RUM001L02T2CL.jpg',  # noqa
+            'swatch_image': 'https://sigma.octopart.com/23299222/image/Rohm-RUM001L02T2CL.jpg'  # noqa
         })
 
         self.assertEqual(len(part.descriptions), 9)
@@ -116,7 +116,7 @@ class APITests(unittest.TestCase):
             'MOSFET, N-CH, 20V, 0.1A, VMT',
             'Trans MOSFET N-CH 20V 0.1A 3-Pin VMT T/R',
             'Trans MOSFET N-CH 20V 0.1A 3-Pin VMT T/R',
-            'RUM001L02 Series 20 V 3.5 Ohm 100 mA N-Ch. Small Signal Mosfet - SOT-723 (VMT3)'  # nopep8
+            'RUM001L02 Series 20 V 3.5 Ohm 100 mA N-Ch. Small Signal Mosfet - SOT-723 (VMT3)'  # noqa
         ])
 
     @responses.activate
