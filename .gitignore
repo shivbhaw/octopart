@@ -1,5 +1,6 @@
 .coverage
 build
+dist
 htmlcov
 venv
 *.egg-info
