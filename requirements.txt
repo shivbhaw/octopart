@@ -1,3 +1,4 @@
+backoff==1.4.0
 futures==3.0.5
 requests==2.13.0
 schematics==2.0.0.dev2

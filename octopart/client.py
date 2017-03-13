@@ -1,12 +1,13 @@
+import copy
 import json
 import logging
 import os
 
 import requests
-from requests.exceptions import HTTPError
 
 from octopart import models
 from octopart.exceptions import OctopartError
+from octopart.utils import exponential_backoff
 
 logger = logging.getLogger(__name__)
 
@@ -39,8 +40,9 @@ class OctopartClient(object):
     def api_key_param(self):
         return {'apikey': self.api_key}
 
+    @exponential_backoff
     def _request(self, path, params=None):
-        params = params or {}
+        params = copy.copy(params or {})
         # `requests` allows query params to be a dict, or a list of 2-tuples.
         # The latter is nice because Octopart requires identical keys for
         # certain resources, like specs and imagesets.
@@ -52,10 +54,7 @@ class OctopartClient(object):
         response = requests.get('%s%s' % (self.BASE_URI, path), params=params)
         logger.debug('requested Octopart URI: %s', response.url)
 
-        try:
-            response.raise_for_status()
-        except HTTPError as err:
-            raise OctopartError('HTTP error: %s' % err.message)
+        response.raise_for_status()
         return response.json()
 
     def match(self,

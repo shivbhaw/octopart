@@ -1,4 +1,25 @@
 from collections import OrderedDict
+import logging
+import sys
+
+import backoff
+from requests.exceptions import RequestException
+
+from octopart.exceptions import OctopartError
+
+logger = logging.getLogger(__name__)
+
+
+def _raise_octopart_error(info):
+    error = sys.exc_info()[1]
+    raise OctopartError(error.message)
+
+
+exponential_backoff = backoff.on_exception(
+    backoff.expo,
+    RequestException,
+    max_tries=5,
+    on_giveup=_raise_octopart_error)
 
 
 def chunked(_list, chunksize=20):
