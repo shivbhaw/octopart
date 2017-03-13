@@ -3,9 +3,6 @@ import unittest
 
 from octopart.client import OctopartClient
 from octopart.exceptions import OctopartError
-# from octopart.models import PartsMatchResult
-# from octopart.models import Part
-# from octopart.models import PartOffer
 
 
 class ClientTests(unittest.TestCase):
@@ -21,13 +18,18 @@ class ClientTests(unittest.TestCase):
             OctopartClient()
 
     def test_malformed_query(self):
+        client = OctopartClient(api_key='TEST_TOKEN')
         with self.assertRaises(OctopartError):
             # TODO: get actual test account.
-            client = OctopartClient(api_key='TEST_TOKEN')
             client.match([{'q': ["not", "a", "string"]}])
 
     def test_too_many_match_queries(self):
+        client = OctopartClient(api_key='TEST_TOKEN')
+        queries = [{'q': 'fake-mpn'}] * 21
         with self.assertRaises(ValueError):
-            client = OctopartClient(api_key='TEST_TOKEN')
-            queries = [{'q': 'fake-mpn'}] * 21
             client.match(queries)
+
+    def test_bad_api_token(self):
+        client = OctopartClient(api_key='BAD_TOKEN')
+        with self.assertRaises(OctopartError):
+            client.match([{'q': 'RUM001L02T2CL'}])
