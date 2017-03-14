@@ -17,7 +17,7 @@ class ClientTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             OctopartClient()
 
-    def test_malformed_query(self):
+    def test_malformed_match_query(self):
         client = OctopartClient(api_key='TEST_TOKEN')
         with self.assertRaises(OctopartError):
             # TODO: get actual test account.
@@ -28,6 +28,11 @@ class ClientTests(unittest.TestCase):
         queries = [{'q': 'fake-mpn'}] * 21
         with self.assertRaises(ValueError):
             client.match(queries)
+
+    def test_malformed_search_query(self):
+        client = OctopartClient(api_key='TEST_TOKEN')
+        with self.assertRaises(OctopartError):
+            client.search(["query1", "query2"])
 
     def test_bad_api_token(self):
         client = OctopartClient(api_key='BAD_TOKEN')
