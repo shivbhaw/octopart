@@ -2543,6 +2543,2118 @@ parts_match_extra_fields_response = json.loads("""{
 }""")
 
 
+parts_match_multiple_sellers_response = json.loads("""{
+  "msec": 173,
+  "request": {
+    "exact_only": false,
+    "__class__": "PartsMatchRequest",
+    "queries": [
+      {
+        "q": "RUM001L02T2CL",
+        "sku": null,
+        "limit": 3,
+        "reference": "RUM001L02T2CL",
+        "mpn_or_sku": null,
+        "mpn": null,
+        "brand": null,
+        "__class__": "PartsMatchQuery",
+        "start": 0,
+        "seller": "Digi-Key"
+      },
+      {
+        "q": "RUM001L02T2CL",
+        "sku": null,
+        "limit": 3,
+        "reference": "RUM001L02T2CL",
+        "mpn_or_sku": null,
+        "mpn": null,
+        "brand": null,
+        "__class__": "PartsMatchQuery",
+        "start": 0,
+        "seller": "Mouser"
+      }
+    ]
+  },
+  "__class__": "PartsMatchResponse",
+  "results": [
+    {
+      "items": [
+        {
+          "offers": [
+            {
+              "sku": "RUM001L02T2CLTR-ND",
+              "packaging": "Tape & Reel",
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T12:33:22Z",
+              "order_multiple": null,
+              "in_stock_quantity": 152000,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Digi-Key",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.digikey.com",
+                "id": "459",
+                "uid": "2c3be9310496fffc"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0ea26cb&sid=459&ppid=24403092&vpid=99372901&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "c2ec7bf974bf15a02973e7a45c2a437c",
+              "factory_lead_days": 70,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.05250"
+                  ],
+                  [
+                    16000,
+                    "0.04463"
+                  ],
+                  [
+                    24000,
+                    "0.04200"
+                  ],
+                  [
+                    56000,
+                    "0.03938"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CLCT-ND",
+              "packaging": "Cut Tape",
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T12:33:22Z",
+              "order_multiple": null,
+              "in_stock_quantity": 154976,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Digi-Key",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.digikey.com",
+                "id": "459",
+                "uid": "2c3be9310496fffc"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=07e0e74&sid=459&ppid=24403092&vpid=99372899&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "d71ea09ec6069f030abb8a950866cadd",
+              "factory_lead_days": 70,
+              "prices": {
+                "USD": [
+                  [
+                    1,
+                    "0.37000"
+                  ],
+                  [
+                    10,
+                    "0.33800"
+                  ],
+                  [
+                    25,
+                    "0.24320"
+                  ],
+                  [
+                    100,
+                    "0.18930"
+                  ],
+                  [
+                    250,
+                    "0.11896"
+                  ],
+                  [
+                    500,
+                    "0.10140"
+                  ],
+                  [
+                    1000,
+                    "0.06895"
+                  ],
+                  [
+                    2500,
+                    "0.06219"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CLDKR-ND",
+              "packaging": "Custom Reel",
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T12:33:22Z",
+              "order_multiple": null,
+              "in_stock_quantity": 154976,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Digi-Key",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.digikey.com",
+                "id": "459",
+                "uid": "2c3be9310496fffc"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0788fbf&sid=459&ppid=24403092&vpid=99372900&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "7bd9a380f2023eabddf1260bb559e4d3",
+              "factory_lead_days": 70,
+              "prices": {
+                "USD": [
+                  [
+                    1,
+                    "0.37000"
+                  ],
+                  [
+                    10,
+                    "0.33800"
+                  ],
+                  [
+                    25,
+                    "0.24320"
+                  ],
+                  [
+                    100,
+                    "0.18930"
+                  ],
+                  [
+                    250,
+                    "0.11896"
+                  ],
+                  [
+                    500,
+                    "0.10140"
+                  ],
+                  [
+                    1000,
+                    "0.06895"
+                  ],
+                  [
+                    2500,
+                    "0.06219"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "5070019",
+              "packaging": "Tape & Reel",
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T00:39:18Z",
+              "order_multiple": 8000,
+              "in_stock_quantity": 128000,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "CA",
+                "has_ecommerce": true,
+                "name": "Future Electronics",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/futureelectronics.com",
+                "id": "2454",
+                "uid": "e4032109c4f337c4"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=05fb6ca&sid=2454&ppid=24403092&vpid=416901410&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "039dd3f534b8c75f8673b46d1563560e",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.03660"
+                  ],
+                  [
+                    16000,
+                    "0.03480"
+                  ],
+                  [
+                    24000,
+                    "0.03440"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T17:41:44Z",
+              "order_multiple": null,
+              "in_stock_quantity": 80000,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Verical",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.verical.com",
+                "id": "2617",
+                "uid": "504e954473118389"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0ffb412&sid=5489&ppid=24403092&vpid=412212782&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "1e4e51b2a9dde7418b0d63f09b163cc5",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.04260"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "C1S625901109191",
+              "packaging": "Bulk",
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T11:34:27Z",
+              "order_multiple": null,
+              "in_stock_quantity": 48700,
+              "eligible_region": "",
+              "moq": 50,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "JP",
+                "has_ecommerce": true,
+                "name": "Chip One Stop Japan",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/chip1stop.com\/",
+                "id": "4089",
+                "uid": "90be55b4b6214379"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0ec05b5&sid=13512&ppid=24403092&vpid=279849046&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "ce52da5a8962778d6f7b23ee2ed80afd",
+              "factory_lead_days": 1,
+              "prices": {
+                "JPY": [
+                  [
+                    50,
+                    "4.48000"
+                  ],
+                  [
+                    100,
+                    "3.91000"
+                  ],
+                  [
+                    500,
+                    "3.21000"
+                  ],
+                  [
+                    2000,
+                    "2.75000"
+                  ],
+                  [
+                    8000,
+                    "2.66000"
+                  ],
+                  [
+                    16000,
+                    "2.64000"
+                  ]
+                ],
+                "USD": [
+                  [
+                    50,
+                    "0.03960"
+                  ],
+                  [
+                    100,
+                    "0.03460"
+                  ],
+                  [
+                    500,
+                    "0.02840"
+                  ],
+                  [
+                    2000,
+                    "0.02430"
+                  ],
+                  [
+                    8000,
+                    "0.02350"
+                  ],
+                  [
+                    16000,
+                    "0.02330"
+                  ]
+                ],
+                "CNY": [
+                  [
+                    50,
+                    "0.33000"
+                  ],
+                  [
+                    100,
+                    "0.29000"
+                  ],
+                  [
+                    500,
+                    "0.23000"
+                  ],
+                  [
+                    2000,
+                    "0.20000"
+                  ],
+                  [
+                    8000,
+                    "0.19000"
+                  ],
+                  [
+                    16000,
+                    "0.19000"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "755-RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T13:32:23Z",
+              "order_multiple": null,
+              "in_stock_quantity": 23270,
+              "eligible_region": "",
+              "moq": null,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Mouser",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.mouser.com",
+                "id": "2401",
+                "uid": "a5e060ea85e77627"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0ec7611&sid=2401&ppid=24403092&vpid=177765296&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "209c9d280514fa60282deec06e8f3176",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    1,
+                    "0.33000"
+                  ],
+                  [
+                    10,
+                    "0.22500"
+                  ],
+                  [
+                    50,
+                    "0.22500"
+                  ],
+                  [
+                    100,
+                    "0.09400"
+                  ],
+                  [
+                    1000,
+                    "0.06400"
+                  ],
+                  [
+                    10000,
+                    "0.04300"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T17:41:44Z",
+              "order_multiple": null,
+              "in_stock_quantity": 16800,
+              "eligible_region": "",
+              "moq": 497,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Verical",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.verical.com",
+                "id": "2617",
+                "uid": "504e954473118389"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=04f59a1&sid=5489&ppid=24403092&vpid=401812195&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "1e4e51b2a9dde7418b0d63f09b163cc5",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    497,
+                    "0.05040"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "C1S625901573642",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T13:10:51Z",
+              "order_multiple": null,
+              "in_stock_quantity": 5000,
+              "eligible_region": "",
+              "moq": 300,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "JP",
+                "has_ecommerce": true,
+                "name": "Chip One Stop Global",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.chip1stop.com",
+                "id": "10930",
+                "uid": "d2d317d9d1070114"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=04fe7c0&sid=27109&ppid=24403092&vpid=268011108&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "f5bca64303f2035d30aa79422016a522",
+              "factory_lead_days": 2,
+              "prices": {
+                "JPY": [
+                  [
+                    300,
+                    "19.60000"
+                  ],
+                  [
+                    600,
+                    "18.70000"
+                  ],
+                  [
+                    1200,
+                    "17.90000"
+                  ],
+                  [
+                    2100,
+                    "16.60000"
+                  ]
+                ],
+                "USD": [
+                  [
+                    300,
+                    "0.17600"
+                  ],
+                  [
+                    600,
+                    "0.16800"
+                  ],
+                  [
+                    1200,
+                    "0.16100"
+                  ],
+                  [
+                    2100,
+                    "0.14900"
+                  ]
+                ],
+                "CNY": [
+                  [
+                    300,
+                    "1.43000"
+                  ],
+                  [
+                    600,
+                    "1.36000"
+                  ],
+                  [
+                    1200,
+                    "1.30000"
+                  ],
+                  [
+                    2100,
+                    "1.21000"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-01T03:29:39Z",
+              "order_multiple": 1,
+              "in_stock_quantity": 100,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "CN",
+                "has_ecommerce": true,
+                "name": "Ameya360",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.ameya360.com\/",
+                "id": "11104",
+                "uid": "6c5ca9566e5abf9b"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0bc185a&sid=27291&ppid=24403092&vpid=418112693&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "5efe6eb18432aab1c68cfe8b2803f3d8",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    1,
+                    "0.35000"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-13T22:22:23Z",
+              "order_multiple": 8000,
+              "in_stock_quantity": 0,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Avnet",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/avnetexpress.avnet.com",
+                "id": "2628",
+                "uid": "3667f36d1545e5a0"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?c=1&country=US&ak=a8cfd5a0&sig=0a69187&sid=5822&ppid=24403092&vpid=54000614&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "3c3d78d05d7f78d743fc49e843806d3d",
+              "factory_lead_days": 70,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.03956"
+                  ],
+                  [
+                    16000,
+                    "0.03709"
+                  ],
+                  [
+                    32000,
+                    "0.03492"
+                  ],
+                  [
+                    48000,
+                    "0.03298"
+                  ],
+                  [
+                    80000,
+                    "0.03209"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T09:14:34Z",
+              "order_multiple": null,
+              "in_stock_quantity": 0,
+              "eligible_region": "",
+              "moq": null,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "TTI",
+                "__class__": "Seller",
+                "homepage_url": "https:\/\/www.ttiinc.com",
+                "id": "950",
+                "uid": "75dcb0d65f0ca61b"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0f2869c&sid=950&ppid=24403092&vpid=259663955&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "1c41fa443653d8589a326283aab5b04b",
+              "factory_lead_days": null,
+              "prices": {
+
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T06:39:53Z",
+              "order_multiple": 8000,
+              "in_stock_quantity": 40000,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "SG",
+                "has_ecommerce": true,
+                "name": "Avnet Asia",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/avnetexpress.avnet.com\/store\/em\/EMController?langId=-1&storeId=500201&catalogId=500201&action=home",
+                "id": "4523",
+                "uid": "8604430ebec955c3"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0dd95f1&sid=14182&ppid=24403092&vpid=179081466&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "10d7c4aba0c53356f88cc7cfac7979cf",
+              "factory_lead_days": 90,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.03858"
+                  ],
+                  [
+                    16000,
+                    "0.03849"
+                  ],
+                  [
+                    32000,
+                    "0.03839"
+                  ],
+                  [
+                    48000,
+                    "0.03829"
+                  ],
+                  [
+                    80000,
+                    "0.03820"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "2706687",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T18:03:55Z",
+              "order_multiple": null,
+              "in_stock_quantity": 48,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "GB",
+                "has_ecommerce": true,
+                "name": "Farnell",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.farnell.com\/",
+                "id": "819",
+                "uid": "58989d9272cd8b5f"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0985061&sid=819&ppid=24403092&vpid=413510374&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "ce943698838bf7a5fb82fd652bdcaeb6",
+              "factory_lead_days": null,
+              "prices": {
+                "GBP": [
+                  [
+                    1,
+                    "0.26000"
+                  ],
+                  [
+                    10,
+                    "0.17800"
+                  ],
+                  [
+                    100,
+                    "0.07500"
+                  ],
+                  [
+                    250,
+                    "0.05800"
+                  ],
+                  [
+                    500,
+                    "0.05400"
+                  ],
+                  [
+                    1000,
+                    "0.05000"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "2706687",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T18:48:01Z",
+              "order_multiple": null,
+              "in_stock_quantity": 48,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "SG",
+                "has_ecommerce": true,
+                "name": "element14 APAC",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.element14.com\/",
+                "id": "3702",
+                "uid": "7f61ba6b5871aca6"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0ca0e35&sid=11744&ppid=24403092&vpid=413514237&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "2d9fcccd64294e03de71d28446e4fc41",
+              "factory_lead_days": null,
+              "prices": {
+                "SGD": [
+                  [
+                    1,
+                    "0.46800"
+                  ],
+                  [
+                    10,
+                    "0.32000"
+                  ],
+                  [
+                    100,
+                    "0.13500"
+                  ],
+                  [
+                    250,
+                    "0.10400"
+                  ],
+                  [
+                    500,
+                    "0.09700"
+                  ],
+                  [
+                    1000,
+                    "0.09000"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T07:16:16Z",
+              "order_multiple": 1,
+              "in_stock_quantity": 0,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "EU",
+                "has_ecommerce": true,
+                "name": "Avnet Europe",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/avnetexpress.avnet.com\/store\/em\/EMController?storeId=500201&action=home&region=EMEA&catalogId=500201&langId=-1",
+                "id": "5347",
+                "uid": "9416511ca99347d1"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=04bb831&sid=15544&ppid=24403092&vpid=265726863&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "2e3c9d13b122d0eb9e6ab3d64dd92283",
+              "factory_lead_days": 84,
+              "prices": {
+                "EUR": [
+                  [
+                    1,
+                    "0.26000"
+                  ],
+                  [
+                    10,
+                    "0.17800"
+                  ],
+                  [
+                    100,
+                    "0.07500"
+                  ],
+                  [
+                    250,
+                    "0.05800"
+                  ],
+                  [
+                    500,
+                    "0.05400"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2C",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T06:39:53Z",
+              "order_multiple": 8000,
+              "in_stock_quantity": 0,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "SG",
+                "has_ecommerce": true,
+                "name": "Avnet Asia",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/avnetexpress.avnet.com\/store\/em\/EMController?langId=-1&storeId=500201&catalogId=500201&action=home",
+                "id": "4523",
+                "uid": "8604430ebec955c3"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?c=1&country=US&ak=a8cfd5a0&sig=0e012d5&sid=14182&ppid=24403092&vpid=274748405&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "e093263319765471cc037fe53a017ff1",
+              "factory_lead_days": 90,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.03143"
+                  ],
+                  [
+                    16000,
+                    "0.02973"
+                  ],
+                  [
+                    32000,
+                    "0.02895"
+                  ],
+                  [
+                    48000,
+                    "0.02444"
+                  ],
+                  [
+                    80000,
+                    "0.02200"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "1246838",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T14:39:45Z",
+              "order_multiple": null,
+              "in_stock_quantity": 8100,
+              "eligible_region": "",
+              "moq": null,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "GB",
+                "has_ecommerce": true,
+                "name": "RS Components",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.rs-components.com",
+                "id": "3261",
+                "uid": "fbaa3ea0de71286d"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=01dc8df&sid=10022&ppid=24403092&vpid=277797924&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "be8d08654390ea0f5a9467e1ff79c921",
+              "factory_lead_days": null,
+              "prices": {
+
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T19:12:09Z",
+              "order_multiple": null,
+              "in_stock_quantity": 3434,
+              "eligible_region": "",
+              "moq": null,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Quest",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.questcomp.com",
+                "id": "2412",
+                "uid": "b29977939293615e"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0c8f42d&sid=2412&ppid=24403092&vpid=237424745&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "69551c6692ea6ff32ee603a4cd9fd4f1",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    1,
+                    "0.15000"
+                  ],
+                  [
+                    34,
+                    "0.12000"
+                  ],
+                  [
+                    84,
+                    "0.07500"
+                  ],
+                  [
+                    668,
+                    "0.05400"
+                  ]
+                ]
+              },
+              "is_authorized": false,
+              "is_realtime": false
+            }
+          ],
+          "uid": "cdf0058eb4021237",
+          "mpn": "RUM001L02T2CL",
+          "redirected_uids": [
+
+          ],
+          "brand": {
+            "homepage_url": "http:\/\/www.rohm.com",
+            "__class__": "Brand",
+            "name": "Rohm",
+            "uid": "12f2d3f83daac535"
+          },
+          "octopart_url": "https:\/\/octopart.com\/rum001l02t2cl-rohm-24403092",
+          "__class__": "Part",
+          "manufacturer": {
+            "homepage_url": "http:\/\/www.rohm.com",
+            "__class__": "Manufacturer",
+            "name": "Rohm",
+            "uid": "23ede6e708b5f02a"
+          }
+        }
+      ],
+      "hits": 1,
+      "__class__": "PartsMatchResult",
+      "reference": "RUM001L02T2CL",
+      "error": null
+    },
+    {
+      "items": [
+        {
+          "offers": [
+            {
+              "sku": "RUM001L02T2CLTR-ND",
+              "packaging": "Tape & Reel",
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T12:33:22Z",
+              "order_multiple": null,
+              "in_stock_quantity": 152000,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Digi-Key",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.digikey.com",
+                "id": "459",
+                "uid": "2c3be9310496fffc"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0ea26cb&sid=459&ppid=24403092&vpid=99372901&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "c2ec7bf974bf15a02973e7a45c2a437c",
+              "factory_lead_days": 70,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.05250"
+                  ],
+                  [
+                    16000,
+                    "0.04463"
+                  ],
+                  [
+                    24000,
+                    "0.04200"
+                  ],
+                  [
+                    56000,
+                    "0.03938"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CLDKR-ND",
+              "packaging": "Custom Reel",
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T12:33:22Z",
+              "order_multiple": null,
+              "in_stock_quantity": 154976,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Digi-Key",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.digikey.com",
+                "id": "459",
+                "uid": "2c3be9310496fffc"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0788fbf&sid=459&ppid=24403092&vpid=99372900&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "7bd9a380f2023eabddf1260bb559e4d3",
+              "factory_lead_days": 70,
+              "prices": {
+                "USD": [
+                  [
+                    1,
+                    "0.37000"
+                  ],
+                  [
+                    10,
+                    "0.33800"
+                  ],
+                  [
+                    25,
+                    "0.24320"
+                  ],
+                  [
+                    100,
+                    "0.18930"
+                  ],
+                  [
+                    250,
+                    "0.11896"
+                  ],
+                  [
+                    500,
+                    "0.10140"
+                  ],
+                  [
+                    1000,
+                    "0.06895"
+                  ],
+                  [
+                    2500,
+                    "0.06219"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CLCT-ND",
+              "packaging": "Cut Tape",
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T12:33:22Z",
+              "order_multiple": null,
+              "in_stock_quantity": 154976,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Digi-Key",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.digikey.com",
+                "id": "459",
+                "uid": "2c3be9310496fffc"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=07e0e74&sid=459&ppid=24403092&vpid=99372899&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "d71ea09ec6069f030abb8a950866cadd",
+              "factory_lead_days": 70,
+              "prices": {
+                "USD": [
+                  [
+                    1,
+                    "0.37000"
+                  ],
+                  [
+                    10,
+                    "0.33800"
+                  ],
+                  [
+                    25,
+                    "0.24320"
+                  ],
+                  [
+                    100,
+                    "0.18930"
+                  ],
+                  [
+                    250,
+                    "0.11896"
+                  ],
+                  [
+                    500,
+                    "0.10140"
+                  ],
+                  [
+                    1000,
+                    "0.06895"
+                  ],
+                  [
+                    2500,
+                    "0.06219"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "5070019",
+              "packaging": "Tape & Reel",
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T00:39:18Z",
+              "order_multiple": 8000,
+              "in_stock_quantity": 128000,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "CA",
+                "has_ecommerce": true,
+                "name": "Future Electronics",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/futureelectronics.com",
+                "id": "2454",
+                "uid": "e4032109c4f337c4"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=05fb6ca&sid=2454&ppid=24403092&vpid=416901410&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "039dd3f534b8c75f8673b46d1563560e",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.03660"
+                  ],
+                  [
+                    16000,
+                    "0.03480"
+                  ],
+                  [
+                    24000,
+                    "0.03440"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T17:41:44Z",
+              "order_multiple": null,
+              "in_stock_quantity": 80000,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Verical",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.verical.com",
+                "id": "2617",
+                "uid": "504e954473118389"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0ffb412&sid=5489&ppid=24403092&vpid=412212782&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "1e4e51b2a9dde7418b0d63f09b163cc5",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.04260"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "C1S625901109191",
+              "packaging": "Bulk",
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T11:34:27Z",
+              "order_multiple": null,
+              "in_stock_quantity": 48700,
+              "eligible_region": "",
+              "moq": 50,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "JP",
+                "has_ecommerce": true,
+                "name": "Chip One Stop Japan",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/chip1stop.com\/",
+                "id": "4089",
+                "uid": "90be55b4b6214379"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0ec05b5&sid=13512&ppid=24403092&vpid=279849046&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "ce52da5a8962778d6f7b23ee2ed80afd",
+              "factory_lead_days": 1,
+              "prices": {
+                "JPY": [
+                  [
+                    50,
+                    "4.48000"
+                  ],
+                  [
+                    100,
+                    "3.91000"
+                  ],
+                  [
+                    500,
+                    "3.21000"
+                  ],
+                  [
+                    2000,
+                    "2.75000"
+                  ],
+                  [
+                    8000,
+                    "2.66000"
+                  ],
+                  [
+                    16000,
+                    "2.64000"
+                  ]
+                ],
+                "USD": [
+                  [
+                    50,
+                    "0.03960"
+                  ],
+                  [
+                    100,
+                    "0.03460"
+                  ],
+                  [
+                    500,
+                    "0.02840"
+                  ],
+                  [
+                    2000,
+                    "0.02430"
+                  ],
+                  [
+                    8000,
+                    "0.02350"
+                  ],
+                  [
+                    16000,
+                    "0.02330"
+                  ]
+                ],
+                "CNY": [
+                  [
+                    50,
+                    "0.33000"
+                  ],
+                  [
+                    100,
+                    "0.29000"
+                  ],
+                  [
+                    500,
+                    "0.23000"
+                  ],
+                  [
+                    2000,
+                    "0.20000"
+                  ],
+                  [
+                    8000,
+                    "0.19000"
+                  ],
+                  [
+                    16000,
+                    "0.19000"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "755-RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T13:32:23Z",
+              "order_multiple": null,
+              "in_stock_quantity": 23270,
+              "eligible_region": "",
+              "moq": null,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Mouser",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.mouser.com",
+                "id": "2401",
+                "uid": "a5e060ea85e77627"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0ec7611&sid=2401&ppid=24403092&vpid=177765296&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "209c9d280514fa60282deec06e8f3176",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    1,
+                    "0.33000"
+                  ],
+                  [
+                    10,
+                    "0.22500"
+                  ],
+                  [
+                    50,
+                    "0.22500"
+                  ],
+                  [
+                    100,
+                    "0.09400"
+                  ],
+                  [
+                    1000,
+                    "0.06400"
+                  ],
+                  [
+                    10000,
+                    "0.04300"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T17:41:44Z",
+              "order_multiple": null,
+              "in_stock_quantity": 16800,
+              "eligible_region": "",
+              "moq": 497,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Verical",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.verical.com",
+                "id": "2617",
+                "uid": "504e954473118389"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=04f59a1&sid=5489&ppid=24403092&vpid=401812195&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "1e4e51b2a9dde7418b0d63f09b163cc5",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    497,
+                    "0.05040"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "C1S625901573642",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T13:10:51Z",
+              "order_multiple": null,
+              "in_stock_quantity": 5000,
+              "eligible_region": "",
+              "moq": 300,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "JP",
+                "has_ecommerce": true,
+                "name": "Chip One Stop Global",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.chip1stop.com",
+                "id": "10930",
+                "uid": "d2d317d9d1070114"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=04fe7c0&sid=27109&ppid=24403092&vpid=268011108&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "f5bca64303f2035d30aa79422016a522",
+              "factory_lead_days": 2,
+              "prices": {
+                "JPY": [
+                  [
+                    300,
+                    "19.60000"
+                  ],
+                  [
+                    600,
+                    "18.70000"
+                  ],
+                  [
+                    1200,
+                    "17.90000"
+                  ],
+                  [
+                    2100,
+                    "16.60000"
+                  ]
+                ],
+                "USD": [
+                  [
+                    300,
+                    "0.17600"
+                  ],
+                  [
+                    600,
+                    "0.16800"
+                  ],
+                  [
+                    1200,
+                    "0.16100"
+                  ],
+                  [
+                    2100,
+                    "0.14900"
+                  ]
+                ],
+                "CNY": [
+                  [
+                    300,
+                    "1.43000"
+                  ],
+                  [
+                    600,
+                    "1.36000"
+                  ],
+                  [
+                    1200,
+                    "1.30000"
+                  ],
+                  [
+                    2100,
+                    "1.21000"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-01T03:29:39Z",
+              "order_multiple": 1,
+              "in_stock_quantity": 100,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "CN",
+                "has_ecommerce": true,
+                "name": "Ameya360",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.ameya360.com\/",
+                "id": "11104",
+                "uid": "6c5ca9566e5abf9b"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0bc185a&sid=27291&ppid=24403092&vpid=418112693&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "5efe6eb18432aab1c68cfe8b2803f3d8",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    1,
+                    "0.35000"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-13T22:22:23Z",
+              "order_multiple": 8000,
+              "in_stock_quantity": 0,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Avnet",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/avnetexpress.avnet.com",
+                "id": "2628",
+                "uid": "3667f36d1545e5a0"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?c=1&country=US&ak=a8cfd5a0&sig=0a69187&sid=5822&ppid=24403092&vpid=54000614&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "3c3d78d05d7f78d743fc49e843806d3d",
+              "factory_lead_days": 70,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.03956"
+                  ],
+                  [
+                    16000,
+                    "0.03709"
+                  ],
+                  [
+                    32000,
+                    "0.03492"
+                  ],
+                  [
+                    48000,
+                    "0.03298"
+                  ],
+                  [
+                    80000,
+                    "0.03209"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T09:14:34Z",
+              "order_multiple": null,
+              "in_stock_quantity": 0,
+              "eligible_region": "",
+              "moq": null,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "TTI",
+                "__class__": "Seller",
+                "homepage_url": "https:\/\/www.ttiinc.com",
+                "id": "950",
+                "uid": "75dcb0d65f0ca61b"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0f2869c&sid=950&ppid=24403092&vpid=259663955&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "1c41fa443653d8589a326283aab5b04b",
+              "factory_lead_days": null,
+              "prices": {
+
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T06:39:53Z",
+              "order_multiple": 8000,
+              "in_stock_quantity": 40000,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "SG",
+                "has_ecommerce": true,
+                "name": "Avnet Asia",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/avnetexpress.avnet.com\/store\/em\/EMController?langId=-1&storeId=500201&catalogId=500201&action=home",
+                "id": "4523",
+                "uid": "8604430ebec955c3"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0dd95f1&sid=14182&ppid=24403092&vpid=179081466&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "10d7c4aba0c53356f88cc7cfac7979cf",
+              "factory_lead_days": 90,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.03858"
+                  ],
+                  [
+                    16000,
+                    "0.03849"
+                  ],
+                  [
+                    32000,
+                    "0.03839"
+                  ],
+                  [
+                    48000,
+                    "0.03829"
+                  ],
+                  [
+                    80000,
+                    "0.03820"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "2706687",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T18:03:55Z",
+              "order_multiple": null,
+              "in_stock_quantity": 48,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "GB",
+                "has_ecommerce": true,
+                "name": "Farnell",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.farnell.com\/",
+                "id": "819",
+                "uid": "58989d9272cd8b5f"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0985061&sid=819&ppid=24403092&vpid=413510374&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "ce943698838bf7a5fb82fd652bdcaeb6",
+              "factory_lead_days": null,
+              "prices": {
+                "GBP": [
+                  [
+                    1,
+                    "0.26000"
+                  ],
+                  [
+                    10,
+                    "0.17800"
+                  ],
+                  [
+                    100,
+                    "0.07500"
+                  ],
+                  [
+                    250,
+                    "0.05800"
+                  ],
+                  [
+                    500,
+                    "0.05400"
+                  ],
+                  [
+                    1000,
+                    "0.05000"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "2706687",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T18:48:01Z",
+              "order_multiple": null,
+              "in_stock_quantity": 48,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "SG",
+                "has_ecommerce": true,
+                "name": "element14 APAC",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.element14.com\/",
+                "id": "3702",
+                "uid": "7f61ba6b5871aca6"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0ca0e35&sid=11744&ppid=24403092&vpid=413514237&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "2d9fcccd64294e03de71d28446e4fc41",
+              "factory_lead_days": null,
+              "prices": {
+                "SGD": [
+                  [
+                    1,
+                    "0.46800"
+                  ],
+                  [
+                    10,
+                    "0.32000"
+                  ],
+                  [
+                    100,
+                    "0.13500"
+                  ],
+                  [
+                    250,
+                    "0.10400"
+                  ],
+                  [
+                    500,
+                    "0.09700"
+                  ],
+                  [
+                    1000,
+                    "0.09000"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T07:16:16Z",
+              "order_multiple": 1,
+              "in_stock_quantity": 0,
+              "eligible_region": "",
+              "moq": 1,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "EU",
+                "has_ecommerce": true,
+                "name": "Avnet Europe",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/avnetexpress.avnet.com\/store\/em\/EMController?storeId=500201&action=home&region=EMEA&catalogId=500201&langId=-1",
+                "id": "5347",
+                "uid": "9416511ca99347d1"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=04bb831&sid=15544&ppid=24403092&vpid=265726863&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "2e3c9d13b122d0eb9e6ab3d64dd92283",
+              "factory_lead_days": 84,
+              "prices": {
+                "EUR": [
+                  [
+                    1,
+                    "0.26000"
+                  ],
+                  [
+                    10,
+                    "0.17800"
+                  ],
+                  [
+                    100,
+                    "0.07500"
+                  ],
+                  [
+                    250,
+                    "0.05800"
+                  ],
+                  [
+                    500,
+                    "0.05400"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2C",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T06:39:53Z",
+              "order_multiple": 8000,
+              "in_stock_quantity": 0,
+              "eligible_region": "",
+              "moq": 8000,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "SG",
+                "has_ecommerce": true,
+                "name": "Avnet Asia",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/avnetexpress.avnet.com\/store\/em\/EMController?langId=-1&storeId=500201&catalogId=500201&action=home",
+                "id": "4523",
+                "uid": "8604430ebec955c3"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?c=1&country=US&ak=a8cfd5a0&sig=0e012d5&sid=14182&ppid=24403092&vpid=274748405&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "e093263319765471cc037fe53a017ff1",
+              "factory_lead_days": 90,
+              "prices": {
+                "USD": [
+                  [
+                    8000,
+                    "0.03143"
+                  ],
+                  [
+                    16000,
+                    "0.02973"
+                  ],
+                  [
+                    32000,
+                    "0.02895"
+                  ],
+                  [
+                    48000,
+                    "0.02444"
+                  ],
+                  [
+                    80000,
+                    "0.02200"
+                  ]
+                ]
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "1246838",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T14:39:45Z",
+              "order_multiple": null,
+              "in_stock_quantity": 8100,
+              "eligible_region": "",
+              "moq": null,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "GB",
+                "has_ecommerce": true,
+                "name": "RS Components",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.rs-components.com",
+                "id": "3261",
+                "uid": "fbaa3ea0de71286d"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=01dc8df&sid=10022&ppid=24403092&vpid=277797924&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "be8d08654390ea0f5a9467e1ff79c921",
+              "factory_lead_days": null,
+              "prices": {
+
+              },
+              "is_authorized": true,
+              "is_realtime": false
+            },
+            {
+              "sku": "RUM001L02T2CL",
+              "packaging": null,
+              "on_order_eta": null,
+              "last_updated": "2017-03-14T19:12:09Z",
+              "order_multiple": null,
+              "in_stock_quantity": 3434,
+              "eligible_region": "",
+              "moq": null,
+              "on_order_quantity": null,
+              "octopart_rfq_url": null,
+              "__class__": "PartOffer",
+              "seller": {
+                "display_flag": "US",
+                "has_ecommerce": true,
+                "name": "Quest",
+                "__class__": "Seller",
+                "homepage_url": "http:\/\/www.questcomp.com",
+                "id": "2412",
+                "uid": "b29977939293615e"
+              },
+              "product_url": "https:\/\/octopart.com\/click\/track?country=US&ak=a8cfd5a0&sig=0c8f42d&sid=2412&ppid=24403092&vpid=237424745&ct=offers",
+              "factory_order_multiple": null,
+              "_naive_id": "69551c6692ea6ff32ee603a4cd9fd4f1",
+              "factory_lead_days": null,
+              "prices": {
+                "USD": [
+                  [
+                    1,
+                    "0.15000"
+                  ],
+                  [
+                    34,
+                    "0.12000"
+                  ],
+                  [
+                    84,
+                    "0.07500"
+                  ],
+                  [
+                    668,
+                    "0.05400"
+                  ]
+                ]
+              },
+              "is_authorized": false,
+              "is_realtime": false
+            }
+          ],
+          "uid": "cdf0058eb4021237",
+          "mpn": "RUM001L02T2CL",
+          "redirected_uids": [
+
+          ],
+          "brand": {
+            "homepage_url": "http:\/\/www.rohm.com",
+            "__class__": "Brand",
+            "name": "Rohm",
+            "uid": "12f2d3f83daac535"
+          },
+          "octopart_url": "https:\/\/octopart.com\/rum001l02t2cl-rohm-24403092",
+          "__class__": "Part",
+          "manufacturer": {
+            "homepage_url": "http:\/\/www.rohm.com",
+            "__class__": "Manufacturer",
+            "name": "Rohm",
+            "uid": "23ede6e708b5f02a"
+          }
+        }
+      ],
+      "hits": 1,
+      "__class__": "PartsMatchResult",
+      "reference": "RUM001L02T2CL",
+      "error": null
+    }
+  ]
+}""")
+
+
 parts_search_response = json.loads("""{
   "user_currency": "USD",
   "hits": 8,

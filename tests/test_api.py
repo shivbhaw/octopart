@@ -4,8 +4,7 @@ import unittest
 
 import responses
 
-from octopart.api import match
-from octopart.api import search
+from octopart import api
 from octopart.models import PartsMatchResult
 from octopart.models import PartsSearchResult
 from octopart.models import Part
@@ -37,7 +36,7 @@ class APITests(unittest.TestCase):
             content_type='application/json'
         )
 
-        results = match(['RUM001L02T2CL'])
+        results = api.match(['RUM001L02T2CL'])
 
         self.assertEqual(len(results), 1)
         result = results[0]
@@ -77,7 +76,7 @@ class APITests(unittest.TestCase):
             content_type='application/json'
         )
 
-        results = match(
+        results = api.match(
             ['RUM001L02T2CL'],
             specs=True,
             imagesets=True,
@@ -134,7 +133,7 @@ class APITests(unittest.TestCase):
             content_type='application/json'
         )
 
-        result = search("DISTANCE METER, LASER, 100M")
+        result = api.search("DISTANCE METER, LASER, 100M")
         self.assertTrue(isinstance(result, PartsSearchResult))
 
         self.assertEqual(len(result.parts), 8)
@@ -149,3 +148,33 @@ class APITests(unittest.TestCase):
         self.assertEqual(offer.prices, {
             'USD': {1: '424.99000'}
         })
+
+    @responses.activate
+    def test_match_sellers(self):
+        """
+        Tests that including specific sellers in `match` call
+        passes those values to Octopart.
+        """
+        # Mock out all calls to match endpoint.
+        url_regex = re.compile(r'https://octopart\.com/api/v3/parts/match.*')
+        responses.add(
+            responses.GET,
+            url_regex,
+            json=fixtures.parts_match_multiple_sellers_response,
+            status=200,
+            content_type='application/json'
+        )
+
+        results = api.match(['RUM001L02T2CL'], sellers=['Digi-Key', 'Mouser'])
+
+        self.assertEqual(len(results), 2)
+        for result in results:
+            self.assertTrue(isinstance(result, PartsMatchResult))
+            for part in result.parts:
+                self.assertEqual(part.mpn, 'RUM001L02T2CL')
+                sellers = [offer.seller for offer in part.offers]
+                # NOTE: shouldn't assert that other sellers are absent from
+                # this list, since they actually can be present in responses
+                # that include the `sellers` field in queries.
+                self.assertIn('Digi-Key', sellers)
+                self.assertIn('Mouser', sellers)
