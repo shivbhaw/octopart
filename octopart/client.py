@@ -112,8 +112,6 @@ class OctopartClient(object):
 
         Args:
             query (str): free-form keyword query
-
-        Kwargs:
             start (int): ordinal position of first result
             limit (int): maximum number of results to return
             sortby (list): [(fieldname, order)] list of tuples
@@ -124,7 +122,7 @@ class OctopartClient(object):
                 https://octopart.com/api/docs/v3/search-tutorial#filter-queries
 
         Returns:
-            dict. See `models.PartsSearchResponse` for exact fields.
+            dict. See 'models.PartsSearchResponse' for exact fields.
         """
         filter_fields = filter_fields or {}
         filter_queries = filter_queries or {}

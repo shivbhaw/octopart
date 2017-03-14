@@ -28,12 +28,11 @@ def match(mpns,
 
     Args:
         mpns (list): list of str MPNs
-
-    Kwargs:
-        sellers (list): list of str part sellers
-        specs (bool): whether to include specs for parts
-        imagesets (bool): whether to include imagesets for parts
-        descriptions (bool): whether to include descriptions for parts
+        sellers (list, optional): list of str part sellers
+        specs (bool, optional): whether to include specs for parts
+        imagesets (bool, optional): whether to include imagesets for parts
+        descriptions (bool, optional):
+            whether to include descriptions for parts
 
     Returns:
         list of `models.PartsMatchResult` objects.
@@ -90,13 +89,11 @@ def search(query,
 
     Args:
         query (str): Free-form keyword query
-
-    Kwargs:
-        start (int): Ordinal position of first result
-        limit (int): Maximum number of results to return
-        sortby (list): [(fieldname, order)] list of tuples
-        filter_fields (dict): {fieldname: value} dict
-        filter_queries (dict): {fieldname: value} dict
+        start (int, optional): Ordinal position of first result
+        limit (int, optional): Maximum number of results to return
+        sortby (list, optional): [(fieldname, order)] list of tuples
+        filter_fields (dict, optional): {fieldname: value} dict
+        filter_queries (dict, optional): {fieldname: value} dict
 
     Returns:
         list of `models.PartsSearchResult` objects.
