@@ -1,0 +1,17 @@
+language: python
+cache:
+  directories:
+    - $HOME/.pip-cache/
+    - /home/travis/virtualenv
+python:
+  - "2.7"
+install:
+  - pip install -r requirements/test.txt
+  - pip install coveralls[yaml]
+script:
+  - flake8
+  - coverage run ./setup.py test
+after_success:
+  - coveralls
+env:
+  - OCTOPART_API_KEY=a8cfd5a0
