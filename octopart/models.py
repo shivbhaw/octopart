@@ -151,7 +151,7 @@ class PartsSearchResult(object):
         ]
 
     def __repr__(self):
-        return '<PartsMatchResult: hits=%s>' % self._result['hits']
+        return '<PartsSearchResult: hits=%s>' % self._result['hits']
 
     def pretty_print(self):
         print self
