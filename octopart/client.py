@@ -144,19 +144,21 @@ class OctopartClient(object):
             for field, value in filter_queries.iteritems()
         }
 
-        query = models.PartsSearchQuery({
+        data = {
             'q': query,
             'start': start,
             'limit': limit,
             'sortby': sortby_param,
             'filter_fields': filter_fields_param,
             'filter_queries': filter_queries_param
-        })
+        }
 
-        if query.errors:
-            raise OctopartError('Query is malformed: %s' % query.errors)
+        if not models.PartsSearchQuery.is_valid(data):
+            errors = models.PartsSearchQuery.errors(data)
+            raise OctopartError('Query is malformed: %s' % errors)
 
-        params = query.to_primitive()
+        # Convert `query` to format that Octopart accepts.
+        params = models.PartsSearchQuery(data).to_primitive()
         params.update(params.pop('filter_fields'))
         params.update(params.pop('filter_queries'))
 

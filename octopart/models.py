@@ -10,8 +10,8 @@ from schematics.types.compound import DictType
 
 
 class BaseModel(Model):
-    @property
-    def errors(self):
+    @classmethod
+    def errors(cls, dict_):
         """
         Wraps `schematics` validate method to return an error list instead of
         having to catch an exception in the caller.
@@ -20,9 +20,9 @@ class BaseModel(Model):
             list of validation errors, or None.
         """
         try:
-            super(BaseModel, self).validate()
+            cls(dict_).validate()
             return None
-        except ValidationError as err:
+        except (DataError, ValidationError) as err:
             return err.messages
 
     @classmethod
@@ -44,9 +44,9 @@ class BaseModel(Model):
         except (ConversionError, DataError) as err:
             return err.messages
 
-    @property
-    def is_valid(self):
-        return not self.errors
+    @classmethod
+    def is_valid(cls, dict_):
+        return not cls.errors(dict_)
 
     @classmethod
     def is_valid_list(cls, list_):
@@ -90,7 +90,7 @@ class PartsSearchQuery(BaseModel):
     start = IntType(default=0)
     # Maximum number of results to return
     limit = IntType(default=10)
-    # [(fieldname, order)] list of tuples
+    # Comma-separated string of <field> <value> pairs
     sortby = StringType(default="score desc")
     # {fieldname: value} dict, values are filtered exactly
     filter_fields = DictType(StringType)
