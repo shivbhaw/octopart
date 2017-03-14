@@ -22,7 +22,7 @@ exponential_backoff = backoff.on_exception(
     on_giveup=_raise_octopart_error)
 
 
-def chunked(_list, chunksize=20):
+def chunked(list_, chunksize=20):
     """
     Partitions list into chunks of a given size.
 
@@ -30,20 +30,20 @@ def chunked(_list, chunksize=20):
     than 20 queries in a single request.
 
     Args:
-        _list (list): list to be partitioned
+        list_ (list): list to be partitioned
         chunksize (int): size of resulting chunks
 
     Returns:
         list of lists.
     """
     chunks = []
-    for i in range(0, len(_list), chunksize):
-        chunks.append(_list[i:i + chunksize])
+    for i in range(0, len(list_), chunksize):
+        chunks.append(list_[i:i + chunksize])
     return chunks
 
 
-def unique(_list):
+def unique(list_):
     """
-    Removes duplicate entries from list, keeping it in the original order.
+    Removes duplicate entries from list, keeping it in its original order.
     """
-    return list(OrderedDict.fromkeys(_list))
+    return list(OrderedDict.fromkeys(list_))
