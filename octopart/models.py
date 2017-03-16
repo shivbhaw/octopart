@@ -280,6 +280,10 @@ class PartOffer(object):
         return self._offer['packaging']
 
     @property
+    def in_stock_quantity(self):
+        return self._offer['in_stock_quantity']
+
+    @property
     def moq(self):
         return self._offer['moq']
 
