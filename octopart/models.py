@@ -123,6 +123,10 @@ class PartsMatchResult(object):
         self._result = result
 
     @property
+    def mpn(self):
+        return self._result['reference']
+
+    @property
     def parts(self):
         return [Part(part) for part in self._result['items']]
 
