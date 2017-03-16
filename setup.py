@@ -21,5 +21,11 @@ setuptools.setup(
         "Programming Language :: Python :: 2.7",
         "Topic :: Software Development",
     ],
-    setup_requires=['nose>=1.0'],
+    install_requires=[
+        'backoff>=1.4',
+        'futures>=3.0',
+        'requests>=2.13',
+        'schematics>=2.0',
+    ],
+    tests_require=['nose>=1.0'],
 )
