@@ -13,3 +13,6 @@ def setupLogger(logger):
 
 
 setupLogger(logger)
+
+
+from .api import match, search  # noqa
