@@ -25,7 +25,7 @@ setuptools.setup(
         'backoff>=1.4',
         'futures>=3.0',
         'requests>=2.13',
-        'schematics>=2.0',
+        'schematics>=2.0.0.dev2',
     ],
     tests_require=['nose>=1.0'],
 )
