@@ -259,7 +259,7 @@ class Imageset(object):
         }
 
     def image_url(self, size):
-        return self.images.get('%s_image' % size)
+        return self.image_urls.get('%s_image' % size)
 
     def __repr__(self):
         return repr(self.images)
