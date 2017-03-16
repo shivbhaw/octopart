@@ -62,6 +62,7 @@ class OctopartClient(object):
               specs=False,
               imagesets=False,
               descriptions=False,
+              datasheets=False,
               exact_match=False):
         """
         Search for parts by MPN, brand, SKU, or other fields.
@@ -76,7 +77,7 @@ class OctopartClient(object):
             specs (bool): whether to include specs for each part
             imagesets (bool): whether to include imagesets for each part
             descriptions (bool): whether to include descriptions for each part
-            exact_match (bool): match non-alphanumeric chars in MPNs and SKUs.
+            exact_match (bool): match on non-alphanumeric chars in MPNs/SKUs
 
         Returns:
             dict. See `models.PartsMatchResponse` for exact fields.
@@ -90,13 +91,19 @@ class OctopartClient(object):
             errors = models.PartsMatchQuery.errors_list(queries)
             raise OctopartError('Queries are malformed: %s' % errors)
 
-        params = [('queries', json.dumps(queries))]
+        params = [
+            ('queries', json.dumps(queries)),
+            ('exact_only', json.dumps(exact_match)),
+        ]
+
         if specs:
             params.append(('include[]', 'specs'))
         if imagesets:
             params.append(('include[]', 'imagesets'))
         if descriptions:
             params.append(('include[]', 'descriptions'))
+        if datasheets:
+            params.append(('include[]', 'datasheets'))
 
         return self._request('/parts/match', params=params)
 

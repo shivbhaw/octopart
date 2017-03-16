@@ -166,6 +166,10 @@ class Part(object):
         self._part = part
 
     @property
+    def uid(self):
+        return self._part['uid']
+
+    @property
     def mpn(self):
         return self._part['mpn']
 
@@ -190,6 +194,13 @@ class Part(object):
         _descriptions = self._part.get('descriptions')
         if _descriptions:
             return [desc['value'] for desc in _descriptions]
+        return None
+
+    @property
+    def datasheets(self):
+        _datasheets = self._part.get('datasheets')
+        if _datasheets:
+            return [ds['url'] for ds in _datasheets]
         return None
 
     @property

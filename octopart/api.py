@@ -22,7 +22,8 @@ def match(mpns,
           sellers=None,
           specs=False,
           imagesets=False,
-          descriptions=False):
+          descriptions=False,
+          datasheets=False):
     """
     Match a list of MPNs against Octopart.
 
@@ -65,7 +66,8 @@ def match(mpns,
             queries=chunk,
             specs=specs,
             imagesets=imagesets,
-            descriptions=descriptions)
+            descriptions=descriptions,
+            datasheets=datasheets)
 
     # Execute API calls concurrently to significantly speed up
     # issuing multiple HTTP requests.
