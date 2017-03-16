@@ -190,8 +190,11 @@ class Part(object):
 
     @property
     def imagesets(self):
+        _imagesets = self._part.get('imagesets')
         # TODO: make better accessors for different image URLs.
-        return [Imageset(imageset) for imageset in self._part.get('imagesets')]
+        if _imagesets:
+            return [Imageset(imageset) for imageset in _imagesets]
+        return None
 
     @property
     def descriptions(self):
@@ -234,23 +237,29 @@ class Specs(object):
 
 
 class Imageset(object):
-    IMAGE_TYPES = [
-        'swatch_image',
-        'small_image',
-        'medium_image',
-        'large_image'
+    SWATCH = 'swatch'
+    SMALL = 'small'
+    MEDIUM = 'medium'
+    LARGE = 'large'
+
+    IMAGE_SIZES = [
+        '%s_image' % size
+        for size in [SWATCH, SMALL, MEDIUM, LARGE]
     ]
 
     def __init__(self, imageset):
         self._imageset = imageset
 
     @property
-    def images(self):
+    def image_urls(self):
         return {
             key: image_data['url'] if image_data else None
             for key, image_data in self._imageset.iteritems()
-            if key in self.IMAGE_TYPES
+            if key in self.IMAGE_SIZES and image_data is not None
         }
+
+    def image_url(self, size):
+        return self.images.get('%s_image' % size)
 
     def __repr__(self):
         return repr(self.images)
