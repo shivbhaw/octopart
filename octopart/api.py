@@ -42,28 +42,25 @@ def match(mpns,
     """
     client = OctopartClient()
     unique_mpns = utils.unique(mpns)
-    query_types = ('q', 'mpn_or_sku')
 
     if sellers is None:
         queries = [
             {
-                query_type: mpn,
+                'q': mpn,
                 'limit': limit,
                 'reference': mpn,
             }
-            for (mpn, query_type) in itertools.product(
-                unique_mpns, query_types)
+            for mpn in unique_mpns
         ]
     else:
         queries = [
             {
-                query_type: mpn,
+                'q': mpn,
                 'seller': seller,
                 'limit': limit,
                 'reference': mpn,
             }
-            for (mpn, query_type, seller) in itertools.product(
-                unique_mpns, query_types, sellers)
+            for (mpn, seller) in itertools.product(unique_mpns, sellers)
         ]
 
     def _request_chunk(chunk):
