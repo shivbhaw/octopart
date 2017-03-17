@@ -62,8 +62,7 @@ class OctopartClient(object):
               specs=False,
               imagesets=False,
               descriptions=False,
-              datasheets=False,
-              exact_match=False):
+              datasheets=False):
         """
         Search for parts by MPN, brand, SKU, or other fields.
         See `models.PartsMatchQuery` for the full field list.
@@ -77,7 +76,6 @@ class OctopartClient(object):
             specs (bool): whether to include specs for each part
             imagesets (bool): whether to include imagesets for each part
             descriptions (bool): whether to include descriptions for each part
-            exact_match (bool): match on non-alphanumeric chars in MPNs/SKUs
 
         Returns:
             dict. See `models.PartsMatchResponse` for exact fields.
@@ -93,7 +91,6 @@ class OctopartClient(object):
 
         params = [
             ('queries', json.dumps(queries)),
-            ('exact_only', json.dumps(exact_match)),
         ]
 
         if specs:
