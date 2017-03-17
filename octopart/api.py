@@ -20,6 +20,7 @@ MAX_REQUEST_THREADS = 10
 
 def match(mpns,
           sellers=None,
+          limit=None,
           specs=False,
           imagesets=False,
           descriptions=False,
@@ -41,24 +42,28 @@ def match(mpns,
     """
     client = OctopartClient()
     unique_mpns = utils.unique(mpns)
+    query_types = ('q', 'mpn_or_sku')
 
-    # Use free-form query 'q' field to maximize chances of getting a match.
     if sellers is None:
         queries = [
             {
-                'q': mpn,
-                'reference': mpn
+                query_type: mpn,
+                'limit': limit,
+                'reference': mpn,
             }
-            for mpn in unique_mpns
+            for (mpn, query_type) in itertools.product(
+                unique_mpns, query_types)
         ]
     else:
         queries = [
             {
-                'q': mpn,
+                query_type: mpn,
                 'seller': seller,
+                'limit': limit,
                 'reference': mpn,
             }
-            for (mpn, seller) in itertools.product(unique_mpns, sellers)
+            for (mpn, query_type, seller) in itertools.product(
+                unique_mpns, query_types, sellers)
         ]
 
     def _request_chunk(chunk):
