@@ -54,10 +54,10 @@ class APITests(unittest.TestCase):
 
         self.assertEqual(offer.prices, {
             'USD': {
-                8000: "0.05250",
-                16000: "0.04463",
-                24000: "0.04200",
-                56000: "0.03938"
+                8000: 0.05250,
+                16000: 0.04463,
+                24000: 0.04200,
+                56000: 0.03938
             }
         })
 
@@ -98,8 +98,7 @@ class APITests(unittest.TestCase):
 
         self.assertEqual(len(part.imagesets), 3)
         imageset = part.imagesets[0]
-        self.assertEqual(imageset.images, {
-            'large_image': None,
+        self.assertEqual(imageset.image_urls, {
             'medium_image': 'https://sigma.octopart.com/67745388/image/Rohm-RUM001L02T2CL.jpg',  # noqa
             'small_image': 'https://sigma.octopart.com/66829790/image/Rohm-RUM001L02T2CL.jpg',  # noqa
             'swatch_image': 'https://sigma.octopart.com/23299222/image/Rohm-RUM001L02T2CL.jpg'  # noqa
@@ -146,7 +145,7 @@ class APITests(unittest.TestCase):
         offer = part.offers[0]
         self.assertTrue(isinstance(offer, PartOffer))
         self.assertEqual(offer.prices, {
-            'USD': {1: '424.99000'}
+            'USD': {1: 424.99000}
         })
 
     @responses.activate

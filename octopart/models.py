@@ -253,7 +253,7 @@ class Imageset(object):
     @property
     def image_urls(self):
         return {
-            key: image_data['url'] if image_data else None
+            key: image_data['url']
             for key, image_data in self._imageset.iteritems()
             if key in self.IMAGE_SIZES and image_data is not None
         }
