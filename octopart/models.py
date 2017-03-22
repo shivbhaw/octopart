@@ -276,7 +276,10 @@ class PartOffer(object):
     @property
     def prices(self):
         return {
-            currency: dict(values)
+            currency: {
+                int(quantity): float(price)
+                for quantity, price in dict(values).iteritems()
+            }
             for currency, values in self._offer['prices'].iteritems()
         }
 
