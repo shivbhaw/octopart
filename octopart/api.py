@@ -20,7 +20,7 @@ MAX_REQUEST_THREADS = 10
 
 def match(mpns,
           sellers=None,
-          limit=None,
+          limit=3,
           specs=False,
           imagesets=False,
           descriptions=False,
@@ -46,7 +46,7 @@ def match(mpns,
     if sellers is None:
         queries = [
             {
-                'q': mpn,
+                'mpn_or_sku': mpn,
                 'limit': limit,
                 'reference': mpn,
             }
@@ -55,7 +55,7 @@ def match(mpns,
     else:
         queries = [
             {
-                'q': mpn,
+                'mpn_or_sku': mpn,
                 'seller': seller,
                 'limit': limit,
                 'reference': mpn,
