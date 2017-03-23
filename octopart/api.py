@@ -18,9 +18,22 @@ from octopart.models import PartsSearchResult
 MAX_REQUEST_THREADS = 10
 
 
+class MatchType(object):
+    """
+    Octopart 'match' query types. For more detail, see:
+    https://octopart.com/api/docs/v3/rest-api#response-schemas-partsmatchquery
+    """
+    ALL = 'q'
+    MPN = 'mpn'
+    SKU = 'sku'
+    MPN_OR_SKU = 'mpn_or_sku'
+
+
 def match(mpns,
-          sellers=None,
+          match_type=MatchType.MPN_OR_SKU,
+          partial_match=False,
           limit=3,
+          sellers=(),
           specs=False,
           imagesets=False,
           descriptions=False,
@@ -32,6 +45,9 @@ def match(mpns,
         mpns (list): list of str MPNs
 
     Kwargs:
+        partial_match (bool): whether to surround 'mpns' in wildcards
+            to perform a partial part number match.
+        limit (int): maximum number of results to return for each MPN
         sellers (list): list of str part sellers
         specs (bool): whether to include specs for parts
         imagesets (bool): whether to include imagesets for parts
@@ -42,11 +58,15 @@ def match(mpns,
     """
     client = OctopartClient()
     unique_mpns = utils.unique(mpns)
+    if partial_match:
+        # Append each MPN with a wildcard character so that Octopart performs
+        # a partial match.
+        unique_mpns = ['%s*' % mpn for mpn in unique_mpns]
 
-    if sellers is None:
+    if not sellers:
         queries = [
             {
-                'mpn_or_sku': mpn,
+                match_type: mpn,
                 'limit': limit,
                 'reference': mpn,
             }
@@ -55,7 +75,7 @@ def match(mpns,
     else:
         queries = [
             {
-                'mpn_or_sku': mpn,
+                match_type: mpn,
                 'seller': seller,
                 'limit': limit,
                 'reference': mpn,
