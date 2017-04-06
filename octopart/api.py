@@ -30,7 +30,7 @@ class MatchType(object):
 
 
 def match(mpns,
-          match_type=MatchType.MPN_OR_SKU,
+          match_types=(MatchType.MPN_OR_SKU,),
           partial_match=False,
           limit=3,
           sellers=(),
@@ -70,7 +70,8 @@ def match(mpns,
                 'limit': limit,
                 'reference': mpn,
             }
-            for mpn in unique_mpns
+            for (match_type, mpn) in itertools.product(
+                match_types, unique_mpns)
         ]
     else:
         queries = [
@@ -80,7 +81,8 @@ def match(mpns,
                 'limit': limit,
                 'reference': mpn,
             }
-            for (mpn, seller) in itertools.product(unique_mpns, sellers)
+            for (match_type, mpn, seller) in itertools.product(
+                match_types, unique_mpns, sellers)
         ]
 
     def _request_chunk(chunk):
