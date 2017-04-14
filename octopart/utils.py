@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def _raise_octopart_error(info):
-    exc_type, error, _ = sys.exc_info()[1]
+    exc_type, error, _ = sys.exc_info()
     logger.warning('Octopart client error: %s', error.message)
     raise OctopartError(str(exc_type))
 
