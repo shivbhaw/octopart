@@ -11,8 +11,9 @@ logger = logging.getLogger(__name__)
 
 
 def _raise_octopart_error(info):
-    error = sys.exc_info()[1]
-    raise OctopartError(error.message)
+    exc_type, error, _ = sys.exc_info()[1]
+    logger.warning('Octopart client error: %s', error.message)
+    raise OctopartError(str(exc_type))
 
 
 exponential_backoff = backoff.on_exception(
