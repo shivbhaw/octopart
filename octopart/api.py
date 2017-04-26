@@ -14,7 +14,6 @@ from octopart.client import OctopartClient
 from octopart.models import PartsMatchResult
 from octopart.models import PartsSearchResult
 
-
 MAX_REQUEST_THREADS = 10
 
 
@@ -96,7 +95,7 @@ def match(mpns,
     # Execute API calls concurrently to significantly speed up
     # issuing multiple HTTP requests.
     with ThreadPoolExecutor(max_workers=MAX_REQUEST_THREADS) as pool:
-        responses = pool.map(_request_chunk, utils.chunked(queries))
+        responses = pool.map(_request_chunk, utils.chunk_queries(queries))
 
     return [
         PartsMatchResult(result)
