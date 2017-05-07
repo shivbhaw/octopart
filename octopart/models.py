@@ -39,7 +39,7 @@ class BaseModel(Model):
         try:
             errors = [cls(dict_).errors for dict_ in list_]
             if any(errors):
-                return filter(None, errors)
+                return [_f for _f in errors if _f]
             return None
         except (ConversionError, DataError) as err:
             return err.messages
@@ -136,11 +136,11 @@ class PartsMatchResult(object):
             self._result['reference'])
 
     def pretty_print(self):
-        print self
+        print(self)
         for part in self.parts:
-            print '\t%s' % part
+            print('\t%s' % part)
             for offer in part.offers:
-                print '\t\t%s' % offer
+                print('\t\t%s' % offer)
 
 
 class PartsSearchResult(object):
@@ -158,11 +158,11 @@ class PartsSearchResult(object):
         return '<PartsSearchResult: hits=%s>' % self._result['hits']
 
     def pretty_print(self):
-        print self
+        print(self)
         for part in self.parts:
-            print '\t%s' % part
+            print('\t%s' % part)
             for offer in part.offers:
-                print '\t\t%s' % offer
+                print('\t\t%s' % offer)
 
 
 class Part(object):
@@ -229,7 +229,7 @@ class Specs(object):
                 if len(value['value']) == 1
                 else value['value']
             )
-            for key, value in self._specs.iteritems()
+            for key, value in self._specs.items()
         }
 
     def __repr__(self):
@@ -254,7 +254,7 @@ class Imageset(object):
     def image_urls(self):
         return {
             key: image_data['url']
-            for key, image_data in self._imageset.iteritems()
+            for key, image_data in self._imageset.items()
             if key in self.IMAGE_SIZES and image_data is not None
         }
 
@@ -278,9 +278,9 @@ class PartOffer(object):
         return {
             currency: {
                 int(quantity): float(price)
-                for quantity, price in dict(values).iteritems()
+                for quantity, price in dict(values).items()
             }
-            for currency, values in self._offer['prices'].iteritems()
+            for currency, values in self._offer['prices'].items()
         }
 
     @property
