@@ -49,7 +49,7 @@ class OctopartClient(object):
         if isinstance(params, dict):
             params.update(self.api_key_param)
         else:
-            params.extend(self.api_key_param.items())
+            params.extend(list(self.api_key_param.items()))
 
         response = requests.get('%s%s' % (self.BASE_URI, path), params=params)
         logger.debug('requested Octopart URI: %s', response.url)
@@ -140,12 +140,12 @@ class OctopartClient(object):
 
         filter_fields_param = {
             'filter[fields][%s][]' % field: value
-            for field, value in filter_fields.iteritems()
+            for field, value in filter_fields.items()
         }
 
         filter_queries_param = {
             'filter[queries][]': '%s:%s' % (field, value)
-            for field, value in filter_queries.iteritems()
+            for field, value in filter_queries.items()
         }
 
         data = {

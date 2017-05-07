@@ -3,7 +3,12 @@ import itertools
 import json
 import logging
 import sys
-from urllib import urlencode
+
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    # py2.7 compatibility
+    from urllib import urlencode
 
 import backoff
 from requests.exceptions import RequestException
