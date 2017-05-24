@@ -16,17 +16,27 @@ jobs:
       - run:
           name: Install python dependencies
           command: |
+            python3 -m venv venv
+            . venv/bin/activate
             pip install -r requirements.txt
             pip install -r requirements-test.txt
 
       - save_cache:
           key: octopart-py36-{{ checksum "requirements-test.txt" }}-{{ checksum "requirements.txt" }}
           paths:
-            - "~/.cache/pip"
-            - "/usr/local/lib/python3.6/site-packages"
+            - "venv"
 
-      - run: flake8
-      - run: nosetests --with-coverage
+      - run:
+          name: Run linter
+          command: |
+            . venv/bin/activate
+            flake8
+
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
+            nosetests --with-coverage
 
       - store_test_results:
           path: test-reports/
