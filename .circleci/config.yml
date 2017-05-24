@@ -11,7 +11,7 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: octopart-py36-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/_common.txt" }}
+          key: octopart-py36-{{ checksum "requirements-test.txt" }}-{{ checksum "requirements.txt" }}
 
       - run:
           name: Install python dependencies
@@ -20,7 +20,7 @@ jobs:
             pip install -r requirements-test.txt
 
       - save_cache:
-          key: octopart-py36-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/_common.txt" }}
+          key: octopart-py36-{{ checksum "requirements-test.txt" }}-{{ checksum "requirements.txt" }}
           paths:
             - "~/.cache/pip"
             - "/usr/local/lib/python3.6/site-packages"
