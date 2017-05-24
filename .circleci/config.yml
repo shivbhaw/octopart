@@ -38,5 +38,7 @@ jobs:
             . venv/bin/activate
             nosetests --with-coverage
 
+      - run: mkdir -p test-reports
+
       - store_test_results:
           path: test-reports/
