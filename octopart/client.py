@@ -7,7 +7,7 @@ import requests
 
 from octopart import models
 from octopart.exceptions import OctopartError
-from octopart.utils import exponential_backoff
+from octopart.decorators import retry
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +40,7 @@ class OctopartClient(object):
     def api_key_param(self):
         return {'apikey': self.api_key}
 
-    @exponential_backoff
+    @retry
     def _request(self, path, params=None):
         params = copy.copy(params or {})
         # `requests` allows query params to be a dict, or a list of 2-tuples.

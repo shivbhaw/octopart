@@ -2,7 +2,6 @@ import collections
 import itertools
 import json
 import logging
-import sys
 
 try:
     from urllib.parse import urlencode
@@ -10,27 +9,9 @@ except ImportError:
     # py2.7 compatibility
     from urllib import urlencode
 
-import backoff
-from requests.exceptions import RequestException
-
-from octopart.exceptions import OctopartError
-
 logger = logging.getLogger(__name__)
 
 URL_MAX_LENGTH = 8000
-
-
-def _raise_octopart_error(info):
-    exc_type, error, _ = sys.exc_info()
-    logger.warning('Octopart client error: %s', error)
-    raise OctopartError(exc_type.__name__)
-
-
-exponential_backoff = backoff.on_exception(
-    backoff.expo,
-    RequestException,
-    max_tries=5,
-    on_giveup=_raise_octopart_error)
 
 
 def chunked(list_, chunksize=20):
