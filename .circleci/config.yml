@@ -4,8 +4,6 @@ jobs:
     working_directory: ~/octopart
     docker:
       - image: python:3.6.0
-        environment:
-          OCTOPART_API_KEY: a8cfd5a0
 
     steps:
       - checkout
