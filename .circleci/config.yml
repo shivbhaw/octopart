@@ -1,9 +1,8 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/octopart
     docker:
-      working_directory: ~/octopart
-
       environment:
         - OCTOPART_API_KEY: a8cfd5a0
 
