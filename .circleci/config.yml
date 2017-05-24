@@ -3,8 +3,9 @@ jobs:
   build:
     working_directory: ~/octopart
     docker:
-      environment:
-        OCTOPART_API_KEY: a8cfd5a0
+      - image: buildpack-deps:trusty
+        environment:
+          OCTOPART_API_KEY: a8cfd5a0
 
     steps:
       - checkout
