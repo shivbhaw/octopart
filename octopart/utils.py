@@ -2,7 +2,6 @@ import collections
 import itertools
 import json
 import logging
-import math
 
 try:
     from urllib.parse import urlencode
@@ -67,7 +66,7 @@ def split_chunk(chunk):
     encoded = urlencode({'queries': json.dumps(chunk)})
     if len(encoded) > URL_MAX_LENGTH:
         # Split chunk in half to avoid HTTP 414 error.
-        mid = math.floor(len(chunk) / 2)
+        mid = len(chunk) // 2
         left, right = chunk[:mid], chunk[mid:]
         # Recurse in case either half is still too long.
         return flatten([split_chunk(left), split_chunk(right)])
