@@ -22,7 +22,6 @@ setuptools.setup(
         "Topic :: Software Development",
     ],
     install_requires=[
-        'futures>=3.0',
         'requests>=2.13',
         'retrying>=1.3.3',
         'schematics>=2.0.0.dev2',
