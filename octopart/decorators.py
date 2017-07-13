@@ -27,8 +27,10 @@ def wrap_exception_in(exc_type, catch=Exception):
                 logger.error('Wrapped error: %s', str(exc))
                 message = type(exc).__name__
                 # Add HTTP status code, if one is attached to 'exc'.
-                if hasattr(exc, 'response'):
+                try:
                     message += f' {exc.response.status_code}'
+                except AttributeError:
+                    pass
                 raise exc_type(message) from exc
         return inner
     return wrapper
