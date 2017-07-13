@@ -22,9 +22,9 @@ setuptools.setup(
         "Topic :: Software Development",
     ],
     install_requires=[
-        'requests>=2.13',
+        'requests>=2.18',
         'retrying>=1.3.3',
-        'schematics>=2.0.0.dev2',
+        'schematics>=2.0.1',
     ],
     tests_require=['nose>=1.0'],
 )
