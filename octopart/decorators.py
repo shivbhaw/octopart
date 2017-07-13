@@ -29,7 +29,7 @@ def wrap_exception_in(exc_type, catch=Exception):
                 # Add HTTP status code, if one is attached to 'exc'.
                 if hasattr(exc, 'response'):
                     message += f' {exc.response.status_code}'
-                raise exc_type(message)
+                raise exc_type(message) from exc
         return inner
     return wrapper
 
