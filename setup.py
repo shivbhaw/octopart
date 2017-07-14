@@ -17,15 +17,13 @@ setuptools.setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.6",
         "Topic :: Software Development",
     ],
     install_requires=[
-        'futures>=3.0',
-        'requests>=2.13',
+        'requests>=2.18',
         'retrying>=1.3.3',
-        'schematics>=2.0.0.dev2',
+        'schematics>=2.0.1',
     ],
     tests_require=['nose>=1.0'],
 )
