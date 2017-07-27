@@ -50,7 +50,7 @@ class OctopartClient(object):
         Kwargs:
             api_key (str): Octopart API key
         """
-        api_key = os.getenv('OCTOPART_API_KEY') or api_key
+        api_key = api_key or os.getenv('OCTOPART_API_KEY')
         if not api_key:
             raise ValueError(
                 "API key must be set. "
