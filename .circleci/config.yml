@@ -34,7 +34,7 @@ jobs:
           name: Run tests
           command: |
             . venv/bin/activate
-            nosetests --with-coverage
+            py.test --doctest-modules --ignore=setup.py
 
       - run: mkdir -p test-reports
 

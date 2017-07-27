@@ -25,5 +25,5 @@ setuptools.setup(
         'retrying>=1.3.3',
         'schematics>=2.0.1',
     ],
-    tests_require=['nose>=1.0'],
+    tests_require=['pytest>=3.1.0'],
 )
