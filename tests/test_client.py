@@ -1,17 +1,14 @@
 import os
-import unittest
+from unittest import TestCase
 
 from octopart.client import OctopartClient
 from octopart.exceptions import OctopartError
 
 
-class ClientTests(unittest.TestCase):
+class ClientTests(TestCase):
+    """Tests for client initialization and configuration"""
     def setUp(self):
-        self.old_octopart_key = os.getenv('OCTOPART_API_KEY', "")
-        os.environ['OCTOPART_API_KEY'] = ''
-
-    def tearDown(self):
-        os.environ['OCTOPART_API_KEY'] = self.old_octopart_key
+        self.client = OctopartClient(api_key='TEST_TOKEN')
 
     def test_missing_api_token(self):
         with self.assertRaises(ValueError):
