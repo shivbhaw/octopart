@@ -2,14 +2,11 @@ import collections
 import itertools
 import json
 import logging
+from urllib.parse import urlencode
 
-try:
-    from urllib.parse import urlencode
-except ImportError:
-    # py2.7 compatibility
-    from urllib import urlencode
 
 logger = logging.getLogger(__name__)
+
 
 URL_MAX_LENGTH = 8000
 
