@@ -1,7 +1,10 @@
 import copy
+import enum
 import json
 import logging
 import os
+import typing
+import warnings
 
 import requests
 
@@ -84,6 +87,7 @@ class OctopartClient(object):
             imagesets: bool=False,  # deprecated, use include_imagesets
             descriptions: bool=False,  # deprecated, use include_descriptions
             datasheets: bool=False,  # deprecated, use include_datasheets
+            exact_only: bool=False,
             **kwargs) -> dict:
         """
         Search for parts by MPN, brand, SKU, or other fields.
@@ -103,6 +107,8 @@ class OctopartClient(object):
                 obsolete and superseded by include_descriptions
             datasheets (bool): whether to include datasheet links for each
                 part, obsolete and superseded by include_datasheets
+            exact_only (bool): whether to match non-alphanumeric characters in
+                MPNs and SKUs
             include_*, e.g. include_cad_models (bool): by setting to True, the
                 corresponding field is set in the include directive of the
                 Octopart API call, resulting in optional information being
@@ -121,8 +127,11 @@ class OctopartClient(object):
             errors = models.PartsMatchQuery.errors_list(queries)
             raise OctopartError('Queries are malformed: %s' % errors)
 
+        # endpoint specific parameters as per
+        # https://octopart.com/api/docs/v3/rest-api#endpoints-parts-match
         params = [
             ('queries', json.dumps(queries)),
+            ('exact_only', exact_only),
         ]
 
         # assemble include[] directives as per
