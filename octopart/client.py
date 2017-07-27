@@ -12,6 +12,26 @@ from octopart.decorators import retry
 logger = logging.getLogger(__name__)
 
 
+class INCLUDE(str, enum.Enum):
+    """Categories of information that can optionally be requested
+
+    These categories may be included in the include[] request parameter to
+    request additional information in the response content.
+
+    API docs: https://octopart.com/api/docs/v3/rest-api#include-directives
+    """
+    short_description = 'short_description'
+    datasheets = 'datasheets'
+    compliance_documents = 'compliance_documents'
+    descriptions = 'descriptions'
+    imagesets = 'imagesets'
+    specs = 'specs'
+    category_uids = 'category_uids'
+    external_links = 'external_links'
+    reference_designs = 'reference_designs'
+    cad_models = 'cad_models'
+
+
 class OctopartClient(object):
     """
     Client object for Octopart API v3.
@@ -57,12 +77,14 @@ class OctopartClient(object):
         response.raise_for_status()
         return response.json()
 
-    def match(self,
-              queries=(),
-              specs=False,
-              imagesets=False,
-              descriptions=False,
-              datasheets=False):
+    def match(
+            self,
+            queries: typing.Collection[models.PartsMatchQuery]=(),
+            specs: bool=False,  # deprecated, use include_specs
+            imagesets: bool=False,  # deprecated, use include_imagesets
+            descriptions: bool=False,  # deprecated, use include_descriptions
+            datasheets: bool=False,  # deprecated, use include_datasheets
+            **kwargs) -> dict:
         """
         Search for parts by MPN, brand, SKU, or other fields.
         See `models.PartsMatchQuery` for the full field list.
@@ -73,9 +95,19 @@ class OctopartClient(object):
         Args:
             queries (list): list of part queries. See `models.PartsMatchQuery`
                 for required fields in each query.
-            specs (bool): whether to include specs for each part
-            imagesets (bool): whether to include imagesets for each part
-            descriptions (bool): whether to include descriptions for each part
+            specs (bool): whether to include specs for each part, obsolete and
+                superseded by include_specs
+            imagesets (bool): whether to include imagesets for each part,
+                obsolete and superseded by include_imagesets
+            descriptions (bool): whether to include descriptions for each part,
+                obsolete and superseded by include_descriptions
+            datasheets (bool): whether to include datasheet links for each
+                part, obsolete and superseded by include_datasheets
+            include_*, e.g. include_cad_models (bool): by setting to True, the
+                corresponding field is set in the include directive of the
+                Octopart API call, resulting in optional information being
+                returned (see enum `INCLUDES` for list of possible argument
+                names)
 
         Returns:
             dict. See `models.PartsMatchResponse` for exact fields.
@@ -93,24 +125,47 @@ class OctopartClient(object):
             ('queries', json.dumps(queries)),
         ]
 
+        # assemble include[] directives as per
+        # https://octopart.com/api/docs/v3/rest-api#include-directives
+        includes = self._include_directives(
+            **{k: v for k, v in kwargs if k.startswith('include_')})
+
+        # backward compatibility for other methods of specifying include
+        # directives
         if specs:
-            params.append(('include[]', 'specs'))
+            includes.append('specs')
+            warnings.warn(
+                "The specs argument is deprecated, use include_specs argument "
+                "instead.", DeprecationWarning)
         if imagesets:
-            params.append(('include[]', 'imagesets'))
+            includes.append('imagesets')
+            warnings.warn(
+                "The imagesets argument is deprecated, use include_imagesets "
+                "argument instead.", DeprecationWarning)
         if descriptions:
-            params.append(('include[]', 'descriptions'))
+            includes.append('descriptions')
+            warnings.warn(
+                "The descriptions argument is deprecated, use "
+                "include_descriptions argument instead.", DeprecationWarning)
         if datasheets:
-            params.append(('include[]', 'datasheets'))
+            includes.append('datasheets')
+            warnings.warn(
+                "The datasheets argument is deprecated, use "
+                "include_datasheets argument instead.", DeprecationWarning)
+
+        params.append(('include[]', includes))
 
         return self._request('/parts/match', params=params)
 
-    def search(self,
-               query,
-               start=0,
-               limit=10,
-               sortby=(),
-               filter_fields=None,
-               filter_queries=None):
+    def search(
+            self,
+            query: str,
+            start: int=0,
+            limit: int=10,
+            sortby: typing.Collection=(),
+            filter_fields: dict=None,
+            filter_queries: dict=None,
+            **kwargs) -> dict:
         """
         Search for parts, using more fields and filter options than 'match'.
 
@@ -166,4 +221,40 @@ class OctopartClient(object):
         params.update(params.pop('filter_fields'))
         params.update(params.pop('filter_queries'))
 
+        # assemble include[] directives as per
+        # https://octopart.com/api/docs/v3/rest-api#include-directives
+        includes = self._include_directives(
+            **{k: v for k, v in kwargs if k.startswith('include_')})
+        params.update({'include[]': includes})
+
         return self._request('/parts/search', params=params)
+
+    @staticmethod
+    def _include_directives(**kwargs) -> list:
+        """Turn "include_"-prefixed kwargs into list of strings for the request
+
+        Arguments:
+            All keyword arguments whose name consists of "include_*" and an
+            entry of the INCLUDE enum are used to construct the output. All
+            others are ignored.
+
+        >>> OctopartClient._include_directives(
+        ...    include_datasheets=True, include_specs=True,
+        ...    include_imagesets=False)
+        ['datasheets', 'specs']
+
+        >>> OctopartClient._include_directives(
+        ...    include_abcdefg=True, abcdefg_specs=True)
+        []
+        """
+        includes = []
+
+        for kw_key, kw_val in kwargs.items():
+            # filter for kwargs named include_* and value True
+            if kw_key.startswith('include_') and kw_val:
+                _, incl_key = kw_key.split('include_')
+                # only accept documented values for the include directive
+                if hasattr(INCLUDE, incl_key):
+                    includes.append(incl_key)
+
+        return includes
