@@ -3,7 +3,7 @@ import enum
 import json
 import logging
 import os
-import typing
+from typing import Any, Collection, Dict, List
 import warnings
 
 import requests
@@ -46,7 +46,8 @@ class OctopartClient(object):
     to this constructor.
     """
 
-    def __init__(self, api_key=None, base_url=DEFAULT_BASE_URL):
+    def __init__(
+            self, api_key: str=None, base_url: str=DEFAULT_BASE_URL) -> None:
         """
         Kwargs:
             api_key (str): Octopart API key
@@ -84,13 +85,13 @@ class OctopartClient(object):
 
     def match(
             self,
-            queries: typing.Collection[models.PartsMatchQuery]=(),
+            queries: Collection[models.PartsMatchQuery]=(),
             specs: bool=False,  # deprecated, use include_specs
             imagesets: bool=False,  # deprecated, use include_imagesets
             descriptions: bool=False,  # deprecated, use include_descriptions
             datasheets: bool=False,  # deprecated, use include_datasheets
             exact_only: bool=False,
-            **kwargs) -> dict:
+            **kwargs) -> Dict[str, Any]:
         """
         Search for parts by MPN, brand, SKU, or other fields.
         See `models.PartsMatchQuery` for the full field list.
@@ -131,14 +132,12 @@ class OctopartClient(object):
 
         # endpoint specific parameters as per
         # https://octopart.com/api/docs/v3/rest-api#endpoints-parts-match
-        params = [
-            ('queries', json.dumps(queries)),
-        ]
+        params: Dict[str, Any] = {'queries': json.dumps(queries)}
 
         # since there is a maximum URL length, only set exact_only parameter in
         # the URL when using the non-default value
         if exact_only:
-            params.append(('exact_only', 'true'))
+            params['exact_only'] = 'true'
 
         # assemble include[] directives as per
         # https://octopart.com/api/docs/v3/rest-api#include-directives
@@ -168,7 +167,7 @@ class OctopartClient(object):
                 "The datasheets argument is deprecated, use "
                 "include_datasheets argument instead.", DeprecationWarning)
 
-        params.append(('include[]', includes))
+        params['include[]'] = includes
 
         return self._request('/parts/match', params=params)
 
@@ -177,7 +176,7 @@ class OctopartClient(object):
             query: str,
             start: int=0,
             limit: int=10,
-            sortby: typing.Collection=(),
+            sortby: Collection=(),
             filter_fields: dict=None,
             filter_queries: dict=None,
             **kwargs) -> dict:
@@ -245,7 +244,7 @@ class OctopartClient(object):
         return self._request('/parts/search', params=params)
 
     @staticmethod
-    def _include_directives(**kwargs) -> list:
+    def _include_directives(**kwargs) -> List[str]:
         """Turn "include_"-prefixed kwargs into list of strings for the request
 
         Arguments:
