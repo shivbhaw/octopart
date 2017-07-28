@@ -63,19 +63,17 @@ class OctopartClient(object):
         self.base_url = base_url
 
     @property
-    def api_key_param(self):
+    def api_key_param(self) -> Dict[str, str]:
         return {'apikey': self.api_key}
 
     @retry
-    def _request(self, path, params=None):
+    def _request(
+            self,
+            path: str,
+            params: Dict[str, Any]=None
+            ) -> Any:
         params = copy.copy(params or {})
-        # `requests` allows query params to be a dict, or a list of 2-tuples.
-        # The latter is nice because Octopart requires identical keys for
-        # certain resources, like specs and imagesets.
-        if isinstance(params, dict):
-            params.update(self.api_key_param)
-        else:
-            params.extend(list(self.api_key_param.items()))
+        params.update(self.api_key_param)
 
         response = requests.get('%s%s' % (self.base_url, path), params=params)
         logger.debug('requested Octopart URI: %s', response.url)
