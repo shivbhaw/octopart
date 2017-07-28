@@ -35,17 +35,18 @@ class INCLUDE(str, enum.Enum):
     cad_models = 'cad_models'
 
 
+DEFAULT_BASE_URL = 'https://octopart.com/api/v3'
+
+
 class OctopartClient(object):
-    """
-    Client object for Octopart API v3.
+    """Client object for Octopart API v3
 
     Visit https://octopart.com/api/register to get an API key, then set it as
     an environment variable named 'OCTOPART_API_KEY', or pass the key directly
     to this constructor.
     """
-    BASE_URI = 'https://octopart.com/api/v3'
 
-    def __init__(self, api_key=None):
+    def __init__(self, api_key=None, base_url=DEFAULT_BASE_URL):
         """
         Kwargs:
             api_key (str): Octopart API key
@@ -58,6 +59,7 @@ class OctopartClient(object):
                 "or pass your key directly to the client."
             )
         self.api_key = api_key
+        self.base_url = base_url
 
     @property
     def api_key_param(self):
@@ -74,7 +76,7 @@ class OctopartClient(object):
         else:
             params.extend(list(self.api_key_param.items()))
 
-        response = requests.get('%s%s' % (self.BASE_URI, path), params=params)
+        response = requests.get('%s%s' % (self.base_url, path), params=params)
         logger.debug('requested Octopart URI: %s', response.url)
 
         response.raise_for_status()
