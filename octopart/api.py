@@ -8,7 +8,7 @@ to various fields.
 
 from concurrent.futures import ThreadPoolExecutor
 import itertools
-from typing import Dict, List, Set
+from typing import Dict, List, Tuple
 import warnings
 
 from octopart import utils
@@ -32,15 +32,15 @@ class MatchType(object):
 
 def match(
         mpns: List[str],
-        match_types: Set[str]=None,
+        match_types: Tuple[str]=None,
         partial_match: bool=False,
         limit: int=3,
-        sellers: Set[str]=None,
+        sellers: Tuple[str]=None,
         specs: bool=False,  # deprecated, use include_imagesets
         imagesets: bool=False,  # deprecated, use include_imagesets
         descriptions: bool=False,  # deprecated, use include_imagesets
         datasheets: bool=False,  # deprecated, use include_imagesets
-        **kwargs) -> PartsMatchResult:
+        **kwargs) -> List[PartsMatchResult]:
     """
     Match a list of MPNs against Octopart.
 
