@@ -63,8 +63,8 @@ def match(
         include_*, e.g. include_cad_models (bool): by setting to True, the
             corresponding field is set in the include directive of the
             Octopart API call, resulting in optional information being
-            returned (see enum `INCLUDES` for list of possible argument
-            names)
+            returned (see enum `IncludeDirectives` in directives.py for list of
+            possible argument names)
 
     Returns:
         list of `models.PartsMatchResult` objects.
