@@ -137,7 +137,7 @@ class OctopartClient(object):
         # assemble include[] directives as per
         # https://octopart.com/api/docs/v3/rest-api#include-directives
         includes = self._include_directives(
-            **{k: v for k, v in kwargs if k.startswith('include_')})
+            **{k: v for k, v in kwargs.items() if k.startswith('include_')})
 
         # backward compatibility for other methods of specifying include
         # directives
