@@ -34,7 +34,7 @@ jobs:
           name: Run tests
           command: |
             . venv/bin/activate
-            py.test --doctest-modules --ignore=setup.py
+            py.test --cov=octopart --doctest-modules --ignore=setup.py
             python -m mypy octopart --ignore-missing-imports
 
       - run: mkdir -p test-reports
