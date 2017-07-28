@@ -1,39 +1,12 @@
-from contextlib import contextmanager
 import os
 from unittest import TestCase
 from unittest.mock import patch
-import re
-
-import responses
 
 from octopart.client import OctopartClient
 from octopart.exceptions import OctopartError
 
-
-@contextmanager
-def octopart_mock_response():
-    """Boilerplate for mocking all Octopart API URLs with an empty response"""
-    with responses.RequestsMock() as rsps:
-        rsps.add(
-            responses.GET,
-            re.compile(r'https://octopart\.com/api/v3/.*'),
-            body='{}',
-            status=200,
-            content_type='application/json'
-        )
-
-        yield rsps
-
-
-def request_url_from_request_mock(reqmock):
-    """Given responses.RequestsMock, get URL of first recorded request
-
-    Utility method for asserting that the correct URL was generated. Fails
-    if more than one request was made against the RequestMock.
-    """
-    assert len(reqmock.calls) == 1
-    request, _ = reqmock.calls[0]
-    return request.url
+from .utils import octopart_mock_response
+from .utils import request_url_from_request_mock
 
 
 class ClientTests(TestCase):
@@ -96,19 +69,12 @@ class PartMatchTests(TestCase):
             assert '/parts/match' in called_url
             assert 'exact_only=' not in called_url
 
-    def test_deprecated_arguments(self):
-        with octopart_mock_response() as rsps:
-            with self.assertWarns(DeprecationWarning):
-                self.client.match([{'q': 'FAKE_MPN'}], datasheets=True)
-            called_url = request_url_from_request_mock(rsps)
-            assert 'include%5B%5D=datasheets' in called_url  # %5B%5D is []
-
     def test_complete_example(self):
         with octopart_mock_response() as rsps:
             self.client.match([
                 {'mpn': 'MPN1', 'brand': 'Brand 1'},
                 {'mpn_or_sku': 'MPN-or#SKU2'},
-            ], exact_only=True, include_imagesets=True)
+            ], exact_only=True, includes=['imagesets'])
             called_url = request_url_from_request_mock(rsps)
 
             # %22brand%22%3A+%22Brand+1%22 is "brand": "Brand 1"
