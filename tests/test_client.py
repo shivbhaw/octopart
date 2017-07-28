@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+import os
 from unittest import TestCase
 from unittest.mock import patch
 import re
@@ -41,8 +42,14 @@ class ClientTests(TestCase):
         self.client = OctopartClient(api_key='TEST_TOKEN')
 
     def test_missing_api_token(self):
+        # having the OCTOPART_API_KEY env var set could jinx this test, remove
+        # it temporarily
+        cached_env_var = os.environ.pop('OCTOPART_API_KEY', None)
         with self.assertRaises(ValueError):
             OctopartClient()
+        # if env var was set before, resurrect it
+        if cached_env_var:
+            os.environ['OCTOPART_API_KEY'] = cached_env_var
 
     def test_malformed_search_query(self):
         client = OctopartClient(api_key='TEST_TOKEN')
