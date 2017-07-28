@@ -131,8 +131,12 @@ class OctopartClient(object):
         # https://octopart.com/api/docs/v3/rest-api#endpoints-parts-match
         params = [
             ('queries', json.dumps(queries)),
-            ('exact_only', exact_only),
         ]
+
+        # since there is a maximum URL length, only set exact_only parameter in
+        # the URL when using the non-default value
+        if exact_only:
+            params.append(('exact_only', 'true'))
 
         # assemble include[] directives as per
         # https://octopart.com/api/docs/v3/rest-api#include-directives
@@ -233,7 +237,7 @@ class OctopartClient(object):
         # assemble include[] directives as per
         # https://octopart.com/api/docs/v3/rest-api#include-directives
         includes = self._include_directives(
-            **{k: v for k, v in kwargs if k.startswith('include_')})
+            **{k: v for k, v in kwargs.items() if k.startswith('include_')})
         params.update({'include[]': includes})
 
         return self._request('/parts/search', params=params)
