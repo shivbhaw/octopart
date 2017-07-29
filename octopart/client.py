@@ -66,11 +66,12 @@ class OctopartClient(object):
             includes: List[str]=None,
             ) -> Dict[str, Any]:
         """
-        Search for parts by MPN, brand, SKU, or other fields.
-        See `models.PartsMatchQuery` for the full field list.
+        Search for parts by MPN, brand, SKU, or other fields, sending up to 20
+        queries at the same time. See `models.PartsMatchQuery` for the full
+        field list that may be used in each query.
 
-        NOTE: Octopart allows up to 20 queries to be batched together
-        in a single request to this endpoint.
+        This calls the /parts/match endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-parts-match
 
         Args:
             queries: list of part queries. See `models.PartsMatchQuery` for
@@ -109,7 +110,7 @@ class OctopartClient(object):
 
     def search(
             self,
-            query: str,
+            query: str,  # maps to "q" parameter in Octopart API
             start: int=0,
             limit: int=10,
             sortby: list=None,
@@ -119,6 +120,9 @@ class OctopartClient(object):
             ) -> dict:
         """
         Search for parts, using more fields and filter options than 'match'.
+
+        This calls the /parts/match endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-parts-search
 
         Args:
             query (str): free-form keyword query
