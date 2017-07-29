@@ -11,6 +11,8 @@ from octopart.models import Part
 from octopart.models import PartOffer
 
 from . import fixtures
+from .utils import octopart_mock_response
+from .utils import request_url_from_request_mock
 
 
 class APITests(unittest.TestCase):
@@ -23,9 +25,7 @@ class APITests(unittest.TestCase):
 
     @responses.activate
     def test_parts_match(self):
-        """
-        Tests that `match` returns part matches.
-        """
+        """Tests that `match` returns part matches"""
         # Mock out all calls to match endpoint.
         url_regex = re.compile(r'https://octopart\.com/api/v3/parts/match.*')
         responses.add(
@@ -177,3 +177,27 @@ class APITests(unittest.TestCase):
                 # that include the `sellers` field in queries.
                 self.assertIn('Digi-Key', sellers)
                 self.assertIn('Mouser', sellers)
+
+    def test_deprecated_arguments(self):
+        """Using datasheets=True inst of include_datasheets works but warns"""
+        with octopart_mock_response() as rsps:
+            with self.assertWarns(DeprecationWarning):
+                api.match(['FAKE_MPN'], datasheets=True)
+            called_url = request_url_from_request_mock(rsps)
+            assert 'include%5B%5D=datasheets' in called_url  # %5B%5D is []
+
+    def test_match_include_directives(self):
+        with octopart_mock_response() as rsps:
+            api.match(
+                ['MPN1', 'MPN2'],
+                include_imagesets=True,
+                include_cad_models=True
+            )
+            called_url = request_url_from_request_mock(rsps)
+
+            # %22mpn%22%3A+%22MPN1%22 is "mpn": "MPN1"
+            assert '%22mpn_or_sku%22%3A+%22MPN1%22' in called_url
+            # %22mpn%22%3A+%22MPN2%22 is "mpn": "MPN2"
+            assert '%22mpn_or_sku%22%3A+%22MPN2%22' in called_url
+            assert 'include%5B%5D=imagesets' in called_url  # %5B%5D is []
+            assert 'include%5B%5D=cad_models' in called_url

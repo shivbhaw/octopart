@@ -34,7 +34,13 @@ jobs:
           name: Run tests
           command: |
             . venv/bin/activate
-            nosetests --with-coverage
+            py.test --cov=octopart --doctest-modules --ignore=setup.py
+
+      - run:
+          name: Run mypy
+          command: |
+            . venv/bin/activate
+            python -m mypy octopart --ignore-missing-imports
 
       - run: mkdir -p test-reports
 
