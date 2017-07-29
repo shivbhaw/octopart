@@ -61,7 +61,7 @@ class OctopartClient(object):
 
     def match(
             self,
-            queries: Collection[models.PartsMatchQuery]=(),
+            queries: Collection[models.PartsMatchQuery],
             exact_only: bool=False,
             includes: List[str]=None,
             ) -> Dict[str, Any]:
