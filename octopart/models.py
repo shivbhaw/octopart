@@ -57,11 +57,9 @@ class BaseModel(Model):
 
 
 class PartsMatchQuery(BaseModel):
-    """
-    Query format sent to the 'parts/match' endpoint.
+    """Query format sent to the 'parts/match' endpoint
 
-    For details, see:
-        https://octopart.com/api/docs/v3/rest-api#response-schemas-partsmatchquery
+    https://octopart.com/api/docs/v3/rest-api#response-schemas-partsmatchquery
     """
     # Free-form keyword query
     q = StringType(default="")
@@ -84,6 +82,10 @@ class PartsMatchQuery(BaseModel):
 
 
 class PartsSearchQuery(BaseModel):
+    """Query format sent to the 'parts/match' endpoint
+
+    https://octopart.com/api/docs/v3/rest-api#response-schemas-partsmatchquery
+    """
     # Free-form keyword query
     q = StringType()
     # Ordinal position of first result
@@ -312,3 +314,27 @@ class PartOffer(object):
             self.sku,
             self.seller,
             self._offer['in_stock_quantity'])
+
+
+class Brand(object):
+    def __init__(self, brand):
+        self._brand = brand
+
+    @property
+    def uid(self):
+        return self._brand['uid']
+
+    @property
+    def name(self):
+        return self._brand['name']
+
+    @property
+    def homepage_url(self):
+        return self._brand['homepage_url']
+
+    def __repr__(self):
+        return '<Brand uid=%s, name=%s, url=%s>' % (
+            self.uid,
+            self.name,
+            self.homepage_url
+        )
