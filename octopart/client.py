@@ -121,7 +121,7 @@ class OctopartClient(object):
         """
         Search for parts, using more fields and filter options than 'match'.
 
-        This calls the /parts/match endpoint of the Octopart API:
+        This calls the /parts/search endpoint of the Octopart API:
         https://octopart.com/api/docs/v3/rest-api#endpoints-parts-search
 
         Args:
