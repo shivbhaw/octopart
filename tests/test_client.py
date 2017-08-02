@@ -86,3 +86,22 @@ class PartMatchTests(TestCase):
             assert '%22mpn_or_sku%22%3A+%22MPN-or%23SKU2%22%' in called_url
             assert 'exact_only=true' in called_url
             assert 'include%5B%5D=imagesets' in called_url  # %5B%5D is []
+
+
+class BrandSearchTests(TestCase):
+    """Tests for the client's search_brand() and get_brand() methods"""
+    def setUp(self):
+        self.client = OctopartClient(api_key='TEST_TOKEN')
+
+    def test_get_brand(self):
+        with octopart_mock_response() as rsps:
+            self.client.get_brand('brand_uuid')
+            called_url = request_url_from_request_mock(rsps)
+            assert '/brands/brand_uuid' in called_url
+
+    def test_search_brand(self):
+        with octopart_mock_response() as rsps:
+            self.client.search_brand('MyBrandName')
+            called_url = request_url_from_request_mock(rsps)
+            assert '/brands/search' in called_url
+            assert 'q=MyBrandName' in called_url

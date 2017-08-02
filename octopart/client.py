@@ -54,10 +54,7 @@ class OctopartClient(object):
         params.update(self.api_key_param)
 
         response = requests.get('%s%s' % (self.base_url, path), params=params)
-        logger.debug(
-            'Requested Octopart URI: %s',
-            response.url.replace(self.api_key, '[apikey replaced]')
-        )
+        logger.debug('Requested Octopart URI: %s', response.url)
 
         response.raise_for_status()
         return response.json()

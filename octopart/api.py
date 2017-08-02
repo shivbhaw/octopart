@@ -191,7 +191,7 @@ def search(
     return models.PartsSearchResult(response)
 
 
-def get_brand(uid: str) -> dict:
+def get_brand(uid: str) -> models.Brand:
     client = OctopartClient()
     brand_dict = client.get_brand(uid)
     return models.Brand(brand_dict)
