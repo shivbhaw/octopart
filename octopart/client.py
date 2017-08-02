@@ -232,3 +232,45 @@ class OctopartClient(object):
         params = {k: v for k, v in params.items() if v is not None}
 
         return self._request('/brands/search', params=params)
+
+    def get_category(self, uid: str) -> dict:
+        """Retrieve category information by UID
+
+        This calls the /categories/ endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-categories-get
+
+        Args:
+            uid (str): An Octopart category UID
+
+        Returns:
+            dict. See `models.Category` for exact fields.
+        """
+        return self._request(f'/categories/{uid}')
+
+    def search_category(
+            self,
+            query: str,
+            start: int=None,
+            limit: int=None,
+            sortby: str=None,
+            include_imagesets: bool=None,
+            ) -> dict:
+        """Search for Octopart categories by keyword.
+
+        This calls the /categories/searc endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-categories-search
+        """
+        params = {
+            'q': query,
+            'start': start,
+            'limit': limit,
+            'sortby': sortby,
+        }
+
+        # drop None-valued parameters
+        params = {k: v for k, v in params.items() if v is not None}
+
+        if include_imagesets:
+            params['include[]'] = ['imagesets']
+
+        return self._request('/categories/search', params=params)

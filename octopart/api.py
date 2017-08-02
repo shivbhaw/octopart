@@ -207,3 +207,24 @@ def search_brand(
     res = client.search_brand(
         query=query, start=start, limit=limit, sortby=sortby)
     return [models.Brand(bd.get('item', {})) for bd in res.get('results', [])]
+
+
+def get_category(uid: str) -> models.Category:
+    client = OctopartClient()
+    cat_dict = client.get_category(uid)
+    return models.Category(cat_dict, strict=False)
+
+
+def search_category(
+        query: str,
+        start: int=None,
+        limit: int=None,
+        sortby: str=None,
+        ) -> List[models.Category]:
+    client = OctopartClient()
+    res = client.search_category(
+        query=query, start=start, limit=limit, sortby=sortby)
+    return [
+        models.Category(bd.get('item', {}), strict=False)
+        for bd in res.get('results', [])
+    ]
