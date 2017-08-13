@@ -54,7 +54,7 @@ class OctopartClient(object):
         params.update(self.api_key_param)
 
         response = requests.get('%s%s' % (self.base_url, path), params=params)
-        logger.debug('requested Octopart URI: %s', response.url)
+        logger.debug('Requested Octopart URI: %s', response.url)
 
         response.raise_for_status()
         return response.json()
@@ -121,7 +121,7 @@ class OctopartClient(object):
         """
         Search for parts, using more fields and filter options than 'match'.
 
-        This calls the /parts/match endpoint of the Octopart API:
+        This calls the /parts/search endpoint of the Octopart API:
         https://octopart.com/api/docs/v3/rest-api#endpoints-parts-search
 
         Args:
@@ -183,3 +183,52 @@ class OctopartClient(object):
             params['include[]'] = includes
 
         return self._request('/parts/search', params=params)
+
+    def get_brand(self, uid: str) -> dict:
+        """Retrieve brand data by UID
+
+        This calls the /brands/ endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-brands-get
+
+        Args:
+            uid (str): An Octopart brand UID
+
+        Returns:
+            dict. See `models.Brand` for exact fields.
+        """
+        return self._request(f'/brands/{uid}')
+
+    def search_brand(
+            self,
+            query: str,
+            start: int=None,
+            limit: int=None,
+            sortby: str=None,
+            ) -> dict:
+        """Search for manufacturer names by keyword.
+
+        From the API docs: "This is the ideal method to use to go from a brand
+        alias or keyword to a Octopart brand instance"
+
+        This calls the /brands/searc endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-brands-search
+
+        "brand" vs "manufacturer": For a given part, the Octopart API returns
+        brand and manufacturer information. The schemas for Brand and
+        Manufacturer are identical and include a uid, name, and homepage_url.
+        Even though different uids are returned for the brand and manufacturer
+        of a part, the content (name and homepage_url) of the two objects will
+        always be identical (source: conversation in Octopart's support Slack
+        channel).
+        """
+        params = {
+            'q': query,
+            'start': start,
+            'limit': limit,
+            'sortby': sortby,
+        }
+
+        # drop None-valued parameters
+        params = {k: v for k, v in params.items() if v is not None}
+
+        return self._request('/brands/search', params=params)

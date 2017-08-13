@@ -11,10 +11,9 @@ import itertools
 from typing import Dict, List, Tuple
 import warnings
 
+from octopart import models
 from octopart import utils
 from octopart.client import OctopartClient
-from octopart.models import PartsMatchResult
-from octopart.models import PartsSearchResult
 
 MAX_REQUEST_THREADS = 10
 
@@ -40,7 +39,7 @@ def match(
         imagesets: bool=False,  # deprecated, use include_imagesets
         descriptions: bool=False,  # deprecated, use include_imagesets
         datasheets: bool=False,  # deprecated, use include_imagesets
-        **kwargs) -> List[PartsMatchResult]:
+        **kwargs) -> List[models.PartsMatchResult]:
     """
     Match a list of MPNs against Octopart.
 
@@ -140,7 +139,7 @@ def match(
         responses = pool.map(_request_chunk, utils.chunk_queries(queries))
 
     return [
-        PartsMatchResult(result)
+        models.PartsMatchResult(result)
         for response in responses
         for result in response['results']
     ]
@@ -153,7 +152,7 @@ def search(
         sortby: List[str]=None,
         filter_fields: Dict[str, str]=None,
         filter_queries: Dict[str, str]=None,
-        **kwargs) -> PartsSearchResult:
+        **kwargs) -> models.PartsSearchResult:
     """
     Search Octopart for a general keyword (and optional filters).
 
@@ -189,4 +188,22 @@ def search(
         filter_queries=filter_queries,
         includes=includes,
     )
-    return PartsSearchResult(response)
+    return models.PartsSearchResult(response)
+
+
+def get_brand(uid: str) -> models.Brand:
+    client = OctopartClient()
+    brand_dict = client.get_brand(uid)
+    return models.Brand(brand_dict)
+
+
+def search_brand(
+        query: str,
+        start: int=None,
+        limit: int=None,
+        sortby: str=None,
+        ) -> List[models.Brand]:
+    client = OctopartClient()
+    res = client.search_brand(
+        query=query, start=start, limit=limit, sortby=sortby)
+    return [models.Brand(bd.get('item', {})) for bd in res.get('results', [])]
