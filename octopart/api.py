@@ -40,6 +40,8 @@ def match(
         imagesets: bool=False,  # deprecated, use include_imagesets
         descriptions: bool=False,  # deprecated, use include_imagesets
         datasheets: bool=False,  # deprecated, use include_imagesets
+        show: List[str]=None,
+        hide: List[str]=None,
         **kwargs) -> List[models.PartsMatchResult]:
     """
     Match a list of MPNs against Octopart.
@@ -132,6 +134,8 @@ def match(
         return client.match(
             queries=chunk,
             includes=includes,
+            show=show or [],
+            hide=hide or [],
         )
 
     # Execute API calls concurrently to significantly speed up
@@ -153,6 +157,8 @@ def search(
         sortby: List[Tuple[str, str]]=None,
         filter_fields: Dict[str, str]=None,
         filter_queries: Dict[str, str]=None,
+        show: List[str]=None,
+        hide: List[str]=None,
         **kwargs) -> models.PartsSearchResult:
     """
     Search Octopart for a general keyword (and optional filters).
@@ -188,6 +194,8 @@ def search(
         filter_fields=filter_fields,
         filter_queries=filter_queries,
         includes=includes,
+        show=show,
+        hide=hide,
     )
     return models.PartsSearchResult(response)
 

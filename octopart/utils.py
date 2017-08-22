@@ -75,7 +75,7 @@ def split_chunk(chunk: List) -> List[List]:
 def flatten(list_of_lists: List[List]) -> List:
     """Chain together a list of lists
 
-    >>> flatten([1, 2], [3, 4, 5], ['a'])
+    >>> flatten([[1, 2], [3, 4, 5], ['a']])
     [1, 2, 3, 4, 5, 'a']
     """
     return list(itertools.chain(*list_of_lists))
