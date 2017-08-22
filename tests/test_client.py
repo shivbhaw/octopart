@@ -69,13 +69,6 @@ class PartMatchTests(TestCase):
             assert '/parts/match' in called_url
             assert 'hide%5B%5D=offers' in called_url
 
-    def test_include_directive(self):
-        with octopart_mock_response() as rsps:
-            self.client.match([{'q': 'FAKE_MPN'}], includes=['cad_models'])
-            called_url = request_url_from_request_mock(rsps)
-            assert '/parts/match' in called_url
-            assert 'includes%5B%5D=cad_models' in called_url
-
     def test_show_directive(self):
         with octopart_mock_response() as rsps:
             self.client.match([{'q': 'FAKE_MPN'}], show=['offers', 'unicorns'])
@@ -84,6 +77,13 @@ class PartMatchTests(TestCase):
             assert 'show%5B%5D=offers' in called_url
             assert 'show%5B%5D=unicorns' in called_url
 
+    def test_include_directive(self):
+        with octopart_mock_response() as rsps:
+            self.client.match([{'q': 'FAKE_MPN'}], includes=['cad_models'])
+            called_url = request_url_from_request_mock(rsps)
+            assert '/parts/match' in called_url
+            assert 'include%5B%5D=cad_models' in called_url
+
     def test_no_directives(self):
         with octopart_mock_response() as rsps:
             self.client.match([{'q': 'FAKE_MPN'}])
@@ -91,7 +91,7 @@ class PartMatchTests(TestCase):
             assert '/parts/match' in called_url
             assert 'hide%5B%5D=' not in called_url
             assert 'show%5B%5D=' not in called_url
-            assert 'includes%5B%5D=' not in called_url
+            assert 'include%5B%5D=' not in called_url
             assert 'exact_only=' not in called_url
 
     def test_complete_example(self):
@@ -112,6 +112,70 @@ class PartMatchTests(TestCase):
             assert 'exact_only=true' in called_url
             assert 'show%5B%5D=brand.name' in called_url
             assert 'include%5B%5D=imagesets' in called_url  # %5B%5D is []
+
+
+class PartSearchTests(TestCase):
+    """Tests for the client's search() method"""
+    def setUp(self):
+        self.client = OctopartClient(api_key='TEST_TOKEN')
+
+    @patch('requests.get')
+    def test_malformed_match_query(self, mock_get):
+        with self.assertRaises(OctopartError):
+            self.client.search([{'query': ["not", "a", "string"]}])
+        # the exception should prevent any queries from being made
+        assert not mock_get.called
+
+    def test_hide_directive(self):
+        with octopart_mock_response() as rsps:
+            self.client.search(query='resistor 10kohm 10%', hide=['offers'])
+            called_url = request_url_from_request_mock(rsps)
+            assert '/parts/search' in called_url
+            assert 'hide%5B%5D=offers' in called_url
+
+    def test_show_directive(self):
+        with octopart_mock_response() as rsps:
+            self.client.search(
+                query='resistor 10kohm 10%', show=['offers', 'unicorns'])
+            called_url = request_url_from_request_mock(rsps)
+            assert '/parts/search' in called_url
+            assert 'show%5B%5D=offers' in called_url
+            assert 'show%5B%5D=unicorns' in called_url
+
+    def test_include_directive(self):
+        with octopart_mock_response() as rsps:
+            self.client.search(
+                query='resistor 10kohm 10%', includes=['cad_models'])
+            called_url = request_url_from_request_mock(rsps)
+            assert '/parts/search' in called_url
+            assert 'include%5B%5D=cad_models' in called_url
+
+    def test_no_directives(self):
+        with octopart_mock_response() as rsps:
+            self.client.search(query='resistor 10kohm 10%')
+            called_url = request_url_from_request_mock(rsps)
+            assert '/parts/search' in called_url
+            assert 'hide%5B%5D=' not in called_url
+            assert 'show%5B%5D=' not in called_url
+            assert 'include%5B%5D=' not in called_url
+
+    def test_complete_example(self):
+        with octopart_mock_response() as rsps:
+            self.client.search(
+                query='resistor 10kohm 10%',
+                show=['brand.name'],
+                includes=['imagesets'],
+                start=50,
+                limit=50,
+                sortby=[('score', 'desc')],
+            )
+            called_url = request_url_from_request_mock(rsps)
+            assert 'q=resistor+10kohm+10%25' in called_url
+            assert 'sortby=score+desc' in called_url
+            assert 'start=50' in called_url
+            assert 'limit=50' in called_url
+            assert 'show%5B%5D=brand.name' in called_url  # %5B%5D is []
+            assert 'include%5B%5D=imagesets' in called_url
 
 
 class BrandSearchTests(TestCase):
