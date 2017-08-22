@@ -6,19 +6,26 @@ Python Client for Octopart API v3
 
 # Quickstart
 
-Install
+## Install
 
 ```sh
 python setup.py install
 export OCTOPART_API_KEY="secret"
 ```
 
-Use
+## Use
 
-```
+```python
 import octopart
 
 mpns = ['CGA3E1X7R1E105K080AC']
 res = octopart.match(mpns)
 print(res[0].parts[0].manufacturer)
+```
+
+## Test
+
+```sh
+py.test --cov=octopart --doctest-modules --ignore=setup.py
+python -m mypy octopart --ignore-missing-imports
 ```
