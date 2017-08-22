@@ -64,6 +64,8 @@ class OctopartClient(object):
             queries: Collection[models.PartsMatchQuery],
             exact_only: bool=False,
             includes: List[str]=None,
+            hide: List[str]=None,
+            show: List[str]=None,
             ) -> Dict[str, Any]:
         """
         Search for parts by MPN, brand, SKU, or other fields, sending up to 20
@@ -82,6 +84,13 @@ class OctopartClient(object):
                 Octopart API call, resulting in optional information being
                 returned (see enum `IncludeDirectives` in directives.py for
                 list of possible argument names)
+            hide: List of strings to be sent as "hide directives" of the
+                Octopart API call, resulting in certain fields being excluded
+                from the response. See note below.
+            show: Inverse of `hide`. See note below.
+
+        Refer to https://octopart.com/api/docs/v3/rest-api#show-hide-directives
+        for usage information of the `hide` and `show` directives.
 
         Returns:
             dict. See `models.PartsMatchResponse` for exact fields.
@@ -105,6 +114,10 @@ class OctopartClient(object):
             params['exact_only'] = 'true'
         if includes:
             params['include[]'] = includes
+        if show:
+            params['show[]'] = show
+        if hide:
+            params['hide[]'] = hide
 
         return self._request('/parts/match', params=params)
 
@@ -117,6 +130,8 @@ class OctopartClient(object):
             filter_fields: dict=None,
             filter_queries: dict=None,
             includes: List[str]=None,
+            hide: List[str]=None,
+            show: List[str]=None,
             ) -> dict:
         """
         Search for parts, using more fields and filter options than 'match'.
@@ -136,6 +151,7 @@ class OctopartClient(object):
             filter_queries (dict): {fieldname: value} dict,
                 values can be more complex. See for details:
                 https://octopart.com/api/docs/v3/search-tutorial#filter-queries
+            includes, hide, show: Same as `match()`.
 
         Returns:
             dict. See `models.PartsSearchResponse` for exact fields.
@@ -181,6 +197,10 @@ class OctopartClient(object):
         # the URL when using the non-default value
         if includes:
             params['include[]'] = includes
+        if show:
+            params['show[]'] = show
+        if hide:
+            params['hide[]'] = hide
 
         return self._request('/parts/search', params=params)
 
