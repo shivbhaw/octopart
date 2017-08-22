@@ -62,11 +62,36 @@ class PartMatchTests(TestCase):
             assert '/parts/match' in called_url
             assert 'exact_only=true' in request_url_from_request_mock(rsps)
 
-    def test_exact_match_false(self):
+    def test_hide_directive(self):
+        with octopart_mock_response() as rsps:
+            self.client.match([{'q': 'FAKE_MPN'}], hide=['offers'])
+            called_url = request_url_from_request_mock(rsps)
+            assert '/parts/match' in called_url
+            assert 'hide%5B%5D=offers' in called_url
+
+    def test_include_directive(self):
+        with octopart_mock_response() as rsps:
+            self.client.match([{'q': 'FAKE_MPN'}], includes=['cad_models'])
+            called_url = request_url_from_request_mock(rsps)
+            assert '/parts/match' in called_url
+            assert 'includes%5B%5D=cad_models' in called_url
+
+    def test_show_directive(self):
+        with octopart_mock_response() as rsps:
+            self.client.match([{'q': 'FAKE_MPN'}], show=['offers', 'unicorns'])
+            called_url = request_url_from_request_mock(rsps)
+            assert '/parts/match' in called_url
+            assert 'show%5B%5D=offers' in called_url
+            assert 'show%5B%5D=unicorns' in called_url
+
+    def test_no_directives(self):
         with octopart_mock_response() as rsps:
             self.client.match([{'q': 'FAKE_MPN'}])
             called_url = request_url_from_request_mock(rsps)
             assert '/parts/match' in called_url
+            assert 'hide%5B%5D=' not in called_url
+            assert 'show%5B%5D=' not in called_url
+            assert 'includes%5B%5D=' not in called_url
             assert 'exact_only=' not in called_url
 
     def test_complete_example(self):
@@ -74,7 +99,7 @@ class PartMatchTests(TestCase):
             self.client.match([
                 {'mpn': 'MPN1', 'brand': 'Brand 1'},
                 {'mpn_or_sku': 'MPN-or#SKU2'},
-            ], exact_only=True, includes=['imagesets'])
+            ], exact_only=True, show=['brand.name'], includes=['imagesets'])
             called_url = request_url_from_request_mock(rsps)
 
             # %22brand%22%3A+%22Brand+1%22 is "brand": "Brand 1"
@@ -85,6 +110,7 @@ class PartMatchTests(TestCase):
             # "22mpn_or_sku": "MPN-or#SKU2"
             assert '%22mpn_or_sku%22%3A+%22MPN-or%23SKU2%22%' in called_url
             assert 'exact_only=true' in called_url
+            assert 'show%5B%5D=brand.name' in called_url
             assert 'include%5B%5D=imagesets' in called_url  # %5B%5D is []
 
 
