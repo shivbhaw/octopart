@@ -6,9 +6,6 @@ from typing import List
 from urllib.parse import urlencode
 
 
-from .directives import IncludeDirectives
-
-
 logger = logging.getLogger(__name__)
 
 

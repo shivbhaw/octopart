@@ -150,7 +150,7 @@ def search(
         query: str,
         start: int=0,
         limit: int=10,
-        sortby: List[str]=None,
+        sortby: List[Tuple[str, str]]=None,
         filter_fields: Dict[str, str]=None,
         filter_queries: Dict[str, str]=None,
         **kwargs) -> models.PartsSearchResult:
