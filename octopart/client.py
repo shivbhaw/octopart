@@ -2,7 +2,7 @@ import copy
 import json
 import logging
 import os
-from typing import Any, Collection, Dict, List
+from typing import Any, Collection, Dict, List, Tuple
 
 import requests
 
@@ -126,7 +126,7 @@ class OctopartClient(object):
             query: str,  # maps to "q" parameter in Octopart API
             start: int=0,
             limit: int=10,
-            sortby: list=None,
+            sortby: List[Tuple[str, str]]=None,
             filter_fields: dict=None,
             filter_queries: dict=None,
             includes: List[str]=None,
