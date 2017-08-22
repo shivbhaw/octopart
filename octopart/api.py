@@ -11,9 +11,10 @@ import itertools
 from typing import Dict, List, Tuple
 import warnings
 
-from octopart import models
-from octopart import utils
-from octopart.client import OctopartClient
+from . import models
+from . import utils
+from .client import OctopartClient
+from .directives import include_directives_from_kwargs
 
 MAX_REQUEST_THREADS = 10
 
@@ -101,7 +102,7 @@ def match(
 
     # assemble include[] directives as per
     # https://octopart.com/api/docs/v3/rest-api#include-directives
-    includes = utils.include_directives_from_kwargs(**kwargs)
+    includes = include_directives_from_kwargs(**kwargs)
 
     # backward compatibility for other methods of specifying include directives
     if specs:
@@ -176,7 +177,7 @@ def search(
     """
     # assemble include[] directives as per
     # https://octopart.com/api/docs/v3/rest-api#include-directives
-    includes = utils.include_directives_from_kwargs(**kwargs)
+    includes = include_directives_from_kwargs(**kwargs)
 
     client = OctopartClient()
     response = client.search(
