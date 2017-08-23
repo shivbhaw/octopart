@@ -11,9 +11,10 @@ import itertools
 from typing import Dict, List, Tuple
 import warnings
 
-from octopart import models
-from octopart import utils
-from octopart.client import OctopartClient
+from . import models
+from . import utils
+from .client import OctopartClient
+from .directives import include_directives_from_kwargs
 
 MAX_REQUEST_THREADS = 10
 
@@ -39,6 +40,8 @@ def match(
         imagesets: bool=False,  # deprecated, use include_imagesets
         descriptions: bool=False,  # deprecated, use include_imagesets
         datasheets: bool=False,  # deprecated, use include_imagesets
+        show: List[str]=None,
+        hide: List[str]=None,
         **kwargs) -> List[models.PartsMatchResult]:
     """
     Match a list of MPNs against Octopart.
@@ -101,7 +104,7 @@ def match(
 
     # assemble include[] directives as per
     # https://octopart.com/api/docs/v3/rest-api#include-directives
-    includes = utils.include_directives_from_kwargs(**kwargs)
+    includes = include_directives_from_kwargs(**kwargs)
 
     # backward compatibility for other methods of specifying include directives
     if specs:
@@ -131,6 +134,8 @@ def match(
         return client.match(
             queries=chunk,
             includes=includes,
+            show=show or [],
+            hide=hide or [],
         )
 
     # Execute API calls concurrently to significantly speed up
@@ -149,9 +154,11 @@ def search(
         query: str,
         start: int=0,
         limit: int=10,
-        sortby: List[str]=None,
+        sortby: List[Tuple[str, str]]=None,
         filter_fields: Dict[str, str]=None,
         filter_queries: Dict[str, str]=None,
+        show: List[str]=None,
+        hide: List[str]=None,
         **kwargs) -> models.PartsSearchResult:
     """
     Search Octopart for a general keyword (and optional filters).
@@ -176,7 +183,7 @@ def search(
     """
     # assemble include[] directives as per
     # https://octopart.com/api/docs/v3/rest-api#include-directives
-    includes = utils.include_directives_from_kwargs(**kwargs)
+    includes = include_directives_from_kwargs(**kwargs)
 
     client = OctopartClient()
     response = client.search(
@@ -187,6 +194,8 @@ def search(
         filter_fields=filter_fields,
         filter_queries=filter_queries,
         includes=includes,
+        show=show,
+        hide=hide,
     )
     return models.PartsSearchResult(response)
 
