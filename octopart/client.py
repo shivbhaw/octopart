@@ -9,6 +9,7 @@ import requests
 from octopart import models
 from octopart.exceptions import OctopartError
 from octopart.decorators import retry
+from .utils import sortby_param_str_from_list
 
 logger = logging.getLogger(__name__)
 
@@ -158,12 +159,6 @@ class OctopartClient(object):
         """
         filter_fields = filter_fields or {}
         filter_queries = filter_queries or {}
-        sortby = sortby or []
-
-        sortby_param = ', '.join([
-            '%s %s' % (sort_value, sort_order)
-            for sort_value, sort_order in sortby
-        ])
 
         filter_fields_param = {
             'filter[fields][%s][]' % field: value
@@ -179,7 +174,7 @@ class OctopartClient(object):
             'q': query,
             'start': start,
             'limit': limit,
-            'sortby': sortby_param,
+            'sortby': sortby_param_str_from_list(sortby) or None,
             'filter_fields': filter_fields_param,
             'filter_queries': filter_queries_param
         }
@@ -245,7 +240,7 @@ class OctopartClient(object):
             'q': query,
             'start': start,
             'limit': limit,
-            'sortby': sortby,
+            'sortby': sortby_param_str_from_list(sortby),
         }
 
         # drop None-valued parameters
@@ -284,7 +279,7 @@ class OctopartClient(object):
             'q': query,
             'start': start,
             'limit': limit,
-            'sortby': sortby,
+            'sortby': sortby_param_str_from_list(sortby) or None,
         }
 
         # drop None-valued parameters
