@@ -5,7 +5,7 @@ and make various attributes easier to access.
 
 from schematics.exceptions import ConversionError, DataError, ValidationError
 from schematics.models import Model
-from schematics.types import IntType, StringType
+from schematics.types import BooleanType, IntType, StringType
 from schematics.types.compound import DictType, ListType
 
 
@@ -371,6 +371,25 @@ class Category(BaseModel):
 
     def __repr__(self):
         return '<Category uid=%s, name=%s>' % (
+            self.uid,
+            self.name,
+        )
+
+
+class Seller(BaseModel):
+    # 64-bit unique identifier (e.g. "4a258f2f6a2199e2")
+    uid = UIDType()
+    # The seller's display name	 (e.g. "Newark")
+    name = StringType()
+    # The seller's homepage url (e.g. "http://example.com)
+    homepage_url = StringType()
+    # ISO 3166 alpha-2 country code for display flag (e.g. "US")
+    display_flag = StringType(max_length=2, min_length=2)
+    # Whether seller has e-commerce (true/false)
+    has_ecommerce = BooleanType()
+
+    def __repr__(self):
+        return '<Seller uid=%s, name=%s>' % (
             self.uid,
             self.name,
         )

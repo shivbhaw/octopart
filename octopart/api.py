@@ -237,3 +237,24 @@ def search_category(
         models.Category(bd.get('item', {}), strict=False)
         for bd in res.get('results', [])
     ]
+
+
+def get_seller(uid: str) -> models.Seller:
+    client = OctopartClient()
+    slr_dict = client.get_seller(uid)
+    return models.Seller(slr_dict, strict=False)
+
+
+def search_seller(
+        query: str,
+        start: int=None,
+        limit: int=None,
+        sortby: List[Tuple[str, str]]=None,
+        ) -> List[models.Seller]:
+    client = OctopartClient()
+    res = client.search_seller(
+        query=query, start=start, limit=limit, sortby=sortby)
+    return [
+        models.Seller(res.get('item', {}), strict=False)
+        for res in res.get('results', [])
+    ]
