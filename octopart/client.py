@@ -277,12 +277,10 @@ class OctopartClient(object):
             'start': start,
             'limit': limit,
             'sortby': sortby_param_str_from_list(sortby) or None,
+            'include[]': ['imagesets'] if include_imagesets else None,
         }
 
         # drop None-valued parameters
         params = {k: v for k, v in params.items() if v is not None}
-
-        if include_imagesets:
-            params['include[]'] = ['imagesets']
 
         return self._request('/categories/search', params=params)
