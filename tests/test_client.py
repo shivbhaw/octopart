@@ -214,3 +214,30 @@ class CategorySearchTests(TestCase):
             called_url = request_url_from_request_mock(rsps)
             assert '/categories/search' in called_url
             assert 'q=Fluxistors' in called_url
+
+
+class SellerSearchTests(TestCase):
+    """Tests for the client's search_seller() and get_seller() methods"""
+    def setUp(self):
+        self.client = OctopartClient(api_key='TEST_TOKEN')
+
+    def test_get_category(self):
+        with octopart_mock_response() as rsps:
+            self.client.get_seller('seller_uuid')
+            called_url = request_url_from_request_mock(rsps)
+            assert '/sellers/seller_uuid' in called_url
+
+    def test_search_category(self):
+        with octopart_mock_response() as rsps:
+            self.client.search_seller('Mouser-Key')
+            called_url = request_url_from_request_mock(rsps)
+            assert '/sellers/search' in called_url
+            assert 'q=Mouser-Key' in called_url
+
+    def test_search_category_with_sortby(self):
+        with octopart_mock_response() as rsps:
+            self.client.search_seller('Mouser-Key', sortby=[('name', 'asc')])
+            called_url = request_url_from_request_mock(rsps)
+            assert '/sellers/search' in called_url
+            assert 'q=Mouser-Key' in called_url
+            assert 'sortby=name+asc' in called_url

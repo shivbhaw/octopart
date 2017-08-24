@@ -284,3 +284,38 @@ class OctopartClient(object):
         params = {k: v for k, v in params.items() if v is not None}
 
         return self._request('/categories/search', params=params)
+
+    def get_seller(self, uid: str) -> dict:
+        """Retrieve category information by UID
+
+        This calls the /sellers/ endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-sellers-get
+
+        Args:
+            uid (str): An Octopart seller UID
+        """
+        return self._request(f'/sellers/{uid}')
+
+    def search_seller(
+            self,
+            query: str,
+            start: int=None,
+            limit: int=None,
+            sortby: List[Tuple[str, str]]=None,
+            ) -> dict:
+        """Search for Octopart sellers by keyword.
+
+        This calls the /categories/searc endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-sellers-search
+        """
+        params = {
+            'q': query,
+            'start': start,
+            'limit': limit,
+            'sortby': sortby_param_str_from_list(sortby) or None,
+        }
+
+        # drop None-valued parameters
+        params = {k: v for k, v in params.items() if v is not None}
+
+        return self._request('/sellers/search', params=params)
