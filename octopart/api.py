@@ -210,7 +210,7 @@ def search_brand(
         query: str,
         start: int=None,
         limit: int=None,
-        sortby: str=None,
+        sortby: List[Tuple[str, str]]=None,
         ) -> List[models.Brand]:
     client = OctopartClient()
     res = client.search_brand(
@@ -228,7 +228,7 @@ def search_category(
         query: str,
         start: int=None,
         limit: int=None,
-        sortby: str=None,
+        sortby: List[Tuple[str, str]]=None,
         ) -> List[models.Category]:
     client = OctopartClient()
     res = client.search_category(

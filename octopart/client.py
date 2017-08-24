@@ -218,7 +218,7 @@ class OctopartClient(object):
             query: str,
             start: int=None,
             limit: int=None,
-            sortby: str=None,
+            sortby: List[Tuple[str, str]]=None,
             ) -> dict:
         """Search for manufacturer names by keyword.
 
@@ -256,9 +256,6 @@ class OctopartClient(object):
 
         Args:
             uid (str): An Octopart category UID
-
-        Returns:
-            dict. See `models.Category` for exact fields.
         """
         return self._request(f'/categories/{uid}')
 
@@ -267,7 +264,7 @@ class OctopartClient(object):
             query: str,
             start: int=None,
             limit: int=None,
-            sortby: str=None,
+            sortby:  List[Tuple[str, str]]=None,
             include_imagesets: bool=None,
             ) -> dict:
         """Search for Octopart categories by keyword.
