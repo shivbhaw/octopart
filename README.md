@@ -26,6 +26,6 @@ print(res[0].parts[0].manufacturer)
 ## Test
 
 ```sh
-py.test --cov=octopart --doctest-modules --ignore=setup.py
+python -m pytest --cov=octopart --doctest-modules --ignore=setup.py
 python -m mypy octopart --ignore-missing-imports
 ```
