@@ -9,7 +9,6 @@ to various fields.
 from concurrent.futures import ThreadPoolExecutor
 import itertools
 from typing import Dict, List, Tuple
-import warnings
 
 from . import models
 from . import utils
