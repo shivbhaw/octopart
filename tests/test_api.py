@@ -149,7 +149,7 @@ class APITests(unittest.TestCase):
         })
 
     @responses.activate
-    def test_match_sellers(self):
+    def test_match_parts_by_seller(self):
         """
         Tests that including specific sellers in `match` call
         passes those values to Octopart.
