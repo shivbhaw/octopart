@@ -2,8 +2,10 @@ import collections
 import itertools
 import json
 import logging
-from typing import List
+from typing import List, Tuple
 from urllib.parse import urlencode
+
+from .exceptions import OctopartTypeError
 
 
 logger = logging.getLogger(__name__)
@@ -91,3 +93,35 @@ def unique(list_: List) -> List:
     ['bb', 'aa']
     """
     return list(collections.OrderedDict.fromkeys(list_))
+
+
+def sortby_param_str_from_list(sortby: List[Tuple[str, str]]=None) -> str:
+    """Turns a list of tuples into a string for sending as GET parameter
+
+    >>> sortby_param_str_from_list([('avg_price', 'asc'), ('score', 'desc')])
+    'avg_price asc,score desc'
+    """
+    if sortby and not isinstance(sortby, list):
+        raise OctopartTypeError(
+            '"sortyby" must be a list of tuples of fieldname and one of "asc" '
+            'or "desc"')
+
+    def exc_from_entry(entry):
+        return OctopartTypeError(
+            'All "sortby" entries must be a tuple of a fieldname and one of '
+            '"asc" or "desc", not %s' % entry)
+
+    out = []
+
+    for entry in sortby or []:
+        try:
+            sort_value, sort_order = entry
+        except ValueError:
+            raise exc_from_entry(entry) from ValueError
+
+        if sort_order not in ('asc', 'desc'):
+            raise exc_from_entry(entry)
+
+        out.append(f"{sort_value} {sort_order}")
+
+    return ','.join(out)

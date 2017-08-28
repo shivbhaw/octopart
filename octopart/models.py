@@ -5,8 +5,8 @@ and make various attributes easier to access.
 
 from schematics.exceptions import ConversionError, DataError, ValidationError
 from schematics.models import Model
-from schematics.types import IntType, StringType
-from schematics.types.compound import DictType
+from schematics.types import BooleanType, IntType, StringType
+from schematics.types.compound import DictType, ListType
 
 
 class BaseModel(Model):
@@ -337,4 +337,59 @@ class Brand(object):
             self.uid,
             self.name,
             self.homepage_url
+        )
+
+
+UIDType = StringType
+
+
+class Category(BaseModel):
+    """The Category schema of the Octopart API v3
+
+    https://octopart.com/api/docs/v3/rest-api#object-schemas-category
+    """
+    # 64-bit unique identifier (e.g. "b62d7b27870d6dea")
+    uid = UIDType()
+    # The category node's name (e.g. "Capacitors")
+    name = StringType()
+    # 64-bit unique identifier of parent category node
+    # (e.g. "ab34663e9a1770f3")
+    parent_uid = UIDType()
+    # JSON array of children uid's
+    # (e.g. ["d9ed14e7e8cc022a", "41398c33764e9afe"])
+    children_uids = ListType(UIDType)
+    # JSON array of ancestor uid's with parent ordered last
+    # (e.g. ["55da98d064fd8e1d", "ab34663e9a1770f3"])
+    ancestor_uids = ListType(UIDType)
+    # JSON array of ancestor node names
+    # (e.g. ["Electronic Parts", "Passive Components"])
+    ancestor_names = ListType(StringType)
+    # Number of parts categorized in category node (e.g. 1000000)
+    num_parts = IntType()
+    # Hidden by default (See Include Directives)
+    # imagesets = ListType()
+
+    def __repr__(self):
+        return '<Category uid=%s, name=%s>' % (
+            self.uid,
+            self.name,
+        )
+
+
+class Seller(BaseModel):
+    # 64-bit unique identifier (e.g. "4a258f2f6a2199e2")
+    uid = UIDType()
+    # The seller's display name	 (e.g. "Newark")
+    name = StringType()
+    # The seller's homepage url (e.g. "http://example.com)
+    homepage_url = StringType()
+    # ISO 3166 alpha-2 country code for display flag (e.g. "US")
+    display_flag = StringType(max_length=2, min_length=2)
+    # Whether seller has e-commerce (true/false)
+    has_ecommerce = BooleanType()
+
+    def __repr__(self):
+        return '<Seller uid=%s, name=%s>' % (
+            self.uid,
+            self.name,
         )

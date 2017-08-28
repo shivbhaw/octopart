@@ -9,6 +9,7 @@ import requests
 from octopart import models
 from octopart.exceptions import OctopartError
 from octopart.decorators import retry
+from .utils import sortby_param_str_from_list
 
 logger = logging.getLogger(__name__)
 
@@ -158,12 +159,6 @@ class OctopartClient(object):
         """
         filter_fields = filter_fields or {}
         filter_queries = filter_queries or {}
-        sortby = sortby or []
-
-        sortby_param = ', '.join([
-            '%s %s' % (sort_value, sort_order)
-            for sort_value, sort_order in sortby
-        ])
 
         filter_fields_param = {
             'filter[fields][%s][]' % field: value
@@ -179,7 +174,7 @@ class OctopartClient(object):
             'q': query,
             'start': start,
             'limit': limit,
-            'sortby': sortby_param,
+            'sortby': sortby_param_str_from_list(sortby) or None,
             'filter_fields': filter_fields_param,
             'filter_queries': filter_queries_param
         }
@@ -223,7 +218,7 @@ class OctopartClient(object):
             query: str,
             start: int=None,
             limit: int=None,
-            sortby: str=None,
+            sortby: List[Tuple[str, str]]=None,
             ) -> dict:
         """Search for manufacturer names by keyword.
 
@@ -245,10 +240,82 @@ class OctopartClient(object):
             'q': query,
             'start': start,
             'limit': limit,
-            'sortby': sortby,
+            'sortby': sortby_param_str_from_list(sortby),
         }
 
         # drop None-valued parameters
         params = {k: v for k, v in params.items() if v is not None}
 
         return self._request('/brands/search', params=params)
+
+    def get_category(self, uid: str) -> dict:
+        """Retrieve category information by UID
+
+        This calls the /categories/ endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-categories-get
+
+        Args:
+            uid (str): An Octopart category UID
+        """
+        return self._request(f'/categories/{uid}')
+
+    def search_category(
+            self,
+            query: str,
+            start: int=None,
+            limit: int=None,
+            sortby:  List[Tuple[str, str]]=None,
+            include_imagesets: bool=None,
+            ) -> dict:
+        """Search for Octopart categories by keyword.
+
+        This calls the /categories/search endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-categories-search
+        """
+        params = {
+            'q': query,
+            'start': start,
+            'limit': limit,
+            'sortby': sortby_param_str_from_list(sortby) or None,
+            'include[]': ['imagesets'] if include_imagesets else None,
+        }
+
+        # drop None-valued parameters
+        params = {k: v for k, v in params.items() if v is not None}
+
+        return self._request('/categories/search', params=params)
+
+    def get_seller(self, uid: str) -> dict:
+        """Retrieve category information by UID
+
+        This calls the /sellers/ endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-sellers-get
+
+        Args:
+            uid (str): An Octopart seller UID
+        """
+        return self._request(f'/sellers/{uid}')
+
+    def search_seller(
+            self,
+            query: str,
+            start: int=None,
+            limit: int=None,
+            sortby: List[Tuple[str, str]]=None,
+            ) -> dict:
+        """Search for Octopart sellers by keyword.
+
+        This calls the /sellers/search endpoint of the Octopart API:
+        https://octopart.com/api/docs/v3/rest-api#endpoints-sellers-search
+        """
+        params = {
+            'q': query,
+            'start': start,
+            'limit': limit,
+            'sortby': sortby_param_str_from_list(sortby) or None,
+        }
+
+        # drop None-valued parameters
+        params = {k: v for k, v in params.items() if v is not None}
+
+        return self._request('/sellers/search', params=params)
