@@ -178,14 +178,6 @@ class APITests(unittest.TestCase):
                 self.assertIn('Digi-Key', sellers)
                 self.assertIn('Mouser', sellers)
 
-    def test_deprecated_arguments(self):
-        """Using datasheets=True inst of include_datasheets works but warns"""
-        with octopart_mock_response() as rsps:
-            with self.assertWarns(DeprecationWarning):
-                api.match(['FAKE_MPN'], datasheets=True)
-            called_url = request_url_from_request_mock(rsps)
-            assert 'include%5B%5D=datasheets' in called_url  # %5B%5D is []
-
     def test_match_include_directives(self):
         with octopart_mock_response() as rsps:
             api.match(
