@@ -269,7 +269,7 @@ class OctopartClient(object):
             ) -> dict:
         """Search for Octopart categories by keyword.
 
-        This calls the /categories/searc endpoint of the Octopart API:
+        This calls the /categories/search endpoint of the Octopart API:
         https://octopart.com/api/docs/v3/rest-api#endpoints-categories-search
         """
         params = {
@@ -305,7 +305,7 @@ class OctopartClient(object):
             ) -> dict:
         """Search for Octopart sellers by keyword.
 
-        This calls the /categories/searc endpoint of the Octopart API:
+        This calls the /sellers/search endpoint of the Octopart API:
         https://octopart.com/api/docs/v3/rest-api#endpoints-sellers-search
         """
         params = {
