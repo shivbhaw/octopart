@@ -36,10 +36,6 @@ def match(
         partial_match: bool=False,
         limit: int=3,
         sellers: Tuple[str]=None,
-        specs: bool=False,  # deprecated, use include_imagesets
-        imagesets: bool=False,  # deprecated, use include_imagesets
-        descriptions: bool=False,  # deprecated, use include_imagesets
-        datasheets: bool=False,  # deprecated, use include_imagesets
         show: List[str]=None,
         hide: List[str]=None,
         **kwargs) -> List[models.PartsMatchResult]:
@@ -54,14 +50,6 @@ def match(
             partial part number match.
         limit: maximum number of results to return for each MPN
         sellers: list of str part sellers
-        specs: whether to include specs for each part, obsolete and superseded
-            by include_specs
-        imagesets: whether to include imagesets for each part, obsolete and
-            superseded by include_imagesets
-        descriptions: whether to include descriptions for each part, obsolete
-            and superseded by include_descriptions
-        datasheets: whether to include datasheet links for each part, obsolete
-            and superseded by include_datasheets
         include_*, e.g. include_cad_models (bool): by setting to True, the
             corresponding field is set in the include directive of the
             Octopart API call, resulting in optional information being
@@ -105,28 +93,6 @@ def match(
     # assemble include[] directives as per
     # https://octopart.com/api/docs/v3/rest-api#include-directives
     includes = include_directives_from_kwargs(**kwargs)
-
-    # backward compatibility for other methods of specifying include directives
-    if specs:
-        includes.append('specs')
-        warnings.warn(
-            "The specs argument is deprecated, use include_specs argument "
-            "instead.", DeprecationWarning)
-    if imagesets:
-        includes.append('imagesets')
-        warnings.warn(
-            "The imagesets argument is deprecated, use include_imagesets "
-            "argument instead.", DeprecationWarning)
-    if descriptions:
-        includes.append('descriptions')
-        warnings.warn(
-            "The descriptions argument is deprecated, use "
-            "include_descriptions argument instead.", DeprecationWarning)
-    if datasheets:
-        includes.append('datasheets')
-        warnings.warn(
-            "The datasheets argument is deprecated, use "
-            "include_datasheets argument instead.", DeprecationWarning)
 
     client = OctopartClient()
 
