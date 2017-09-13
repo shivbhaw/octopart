@@ -187,10 +187,10 @@ class Part():
     def specs(self):
         _specs = self._part.get('specs')
         if _specs:
-            return {
+            return Specs({
                 name: Spec(name, spec)
                 for name, spec in _specs.items()
-            }
+            })
         return None
 
     @property
@@ -221,6 +221,15 @@ class Part():
 
     def __repr__(self):
         return '<Part mpn=%s>' % self.mpn
+
+
+class Specs(dict):
+    """
+    XXX: Copied for backwards-compatibility while we phase out use of `Specs`
+    in tempocom.
+    """
+    def to_dict(self):
+        return {name: spec.value for name, spec in self.items()}
 
 
 class Spec():
@@ -404,7 +413,7 @@ class Category(BaseModel):
 class Seller(BaseModel):
     # 64-bit unique identifier (e.g. "4a258f2f6a2199e2")
     uid = UIDType()
-    # The seller's display name	 (e.g. "Newark")
+    # The seller's display name (e.g. "Newark")
     name = StringType()
     # The seller's homepage url (e.g. "http://example.com)
     homepage_url = StringType()
