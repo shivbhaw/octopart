@@ -88,13 +88,11 @@ class APITests(unittest.TestCase):
         part = result.parts[0]
         self.assertEqual(part.mpn, 'RUM001L02T2CL')
 
-        self.assertEqual(part.specs.to_dict(), {
-            'packaging': 'Tape & Reel (TR)',
-            'lead_free_status': 'Lead Free',
-            'rohs_status': 'Compliant',
-            'mounting_style': 'Surface Mount',
-            'polarity': 'N-Channel'
-        })
+        assert part.specs['packaging'].value == 'Tape & Reel (TR)'
+        assert part.specs['lead_free_status'].value == 'Lead Free'
+        assert part.specs['rohs_status'].value == 'Compliant'
+        assert part.specs['mounting_style'].value == 'Surface Mount'
+        assert part.specs['polarity'].value == 'N-Channel'
 
         self.assertEqual(len(part.imagesets), 3)
         imageset = part.imagesets[0]
