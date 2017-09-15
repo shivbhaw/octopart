@@ -102,7 +102,7 @@ class PartsSearchQuery(BaseModel):
     filter_queries = DictType(StringType)
 
 
-class PartsMatchResponse(object):
+class PartsMatchResponse():
     def __init__(self, response):
         self._response = response
 
@@ -120,7 +120,7 @@ class PartsMatchResponse(object):
         return '<PartsMatchResponse: %s results>' % len(self.results)
 
 
-class PartsMatchResult(object):
+class PartsMatchResult():
     def __init__(self, result):
         self._result = result
 
@@ -145,7 +145,7 @@ class PartsMatchResult(object):
                 print('\t\t%s' % offer)
 
 
-class PartsSearchResult(object):
+class PartsSearchResult():
     def __init__(self, result):
         self._result = result
 
@@ -167,7 +167,7 @@ class PartsSearchResult(object):
                 print('\t\t%s' % offer)
 
 
-class Part(object):
+class Part():
     def __init__(self, part):
         self._part = part
 
@@ -187,7 +187,10 @@ class Part(object):
     def specs(self):
         _specs = self._part.get('specs')
         if _specs:
-            return Specs(_specs)
+            return Specs({
+                name: Spec(name, spec)
+                for name, spec in _specs.items()
+            })
         return None
 
     @property
@@ -220,25 +223,56 @@ class Part(object):
         return '<Part mpn=%s>' % self.mpn
 
 
-class Specs(object):
-    def __init__(self, specs):
-        self._specs = specs
-
+class Specs(dict):
+    """
+    XXX: Copied for backwards-compatibility while we phase out use of `Specs`
+    in tempocom.
+    """
     def to_dict(self):
-        return {
-            key: (
-                value['value'][0]
-                if len(value['value']) == 1
-                else value['value']
-            )
-            for key, value in self._specs.items()
-        }
+        return {name: spec.value for name, spec in self.items()}
+
+
+class Spec():
+    def __init__(self, name, spec):
+        self._name = name
+        self._spec = spec
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def value(self):
+        val = self._spec['value']
+        if isinstance(val, list) and len(val) == 1:
+            return val[0]
+        return val
+
+    @property
+    def display_value(self):
+        return self._spec['display_value']
+
+    @property
+    def min_value(self):
+        return self._spec['min_value']
+
+    @property
+    def max_value(self):
+        return self._spec['max_value']
+
+    @property
+    def metadata(self):
+        return self._spec['metadata']
+
+    @property
+    def attribution(self):
+        return self._spec['attribution']
 
     def __repr__(self):
-        return repr(self.to_dict())
+        return f'<Spec name={self.name} value={self.value}>'
 
 
-class Imageset(object):
+class Imageset():
     SWATCH = 'swatch'
     SMALL = 'small'
     MEDIUM = 'medium'
@@ -267,7 +301,7 @@ class Imageset(object):
         return repr(self.images)
 
 
-class PartOffer(object):
+class PartOffer():
     def __init__(self, offer):
         self._offer = offer
 
@@ -316,7 +350,7 @@ class PartOffer(object):
             self._offer['in_stock_quantity'])
 
 
-class Brand(object):
+class Brand():
     def __init__(self, brand):
         self._brand = brand
 
@@ -379,7 +413,7 @@ class Category(BaseModel):
 class Seller(BaseModel):
     # 64-bit unique identifier (e.g. "4a258f2f6a2199e2")
     uid = UIDType()
-    # The seller's display name	 (e.g. "Newark")
+    # The seller's display name (e.g. "Newark")
     name = StringType()
     # The seller's homepage url (e.g. "http://example.com)
     homepage_url = StringType()
