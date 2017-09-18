@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="Octopart",
-    version="0.0.20",
+    version="0.0.21",
     author="Sean Adler",
     author_email="sean@tempoautomation.com",
     license="MIT",
