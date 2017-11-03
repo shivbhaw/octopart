@@ -184,6 +184,10 @@ class Part():
         return [PartOffer(offer) for offer in self._part['offers']]
 
     @property
+    def category_uids(self):
+        return self._part['category_uids']
+
+    @property
     def specs(self):
         _specs = self._part.get('specs')
         if _specs:
