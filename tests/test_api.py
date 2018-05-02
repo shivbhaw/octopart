@@ -1,21 +1,59 @@
 import os
 import re
-import unittest
+from unittest import TestCase
 
 import responses
 
-from octopart import api
-from octopart.models import PartsMatchResult
-from octopart.models import PartsSearchResult
-from octopart.models import Part
-from octopart.models import PartOffer
+from octopart import api, models
+from octopart.client import OctopartClient
 
 from . import fixtures
 from .utils import octopart_mock_response
 from .utils import request_url_from_request_mock
 
 
-class APITests(unittest.TestCase):
+class BrandTests(TestCase):
+    """Tests for the client's search_brand() and get_brand() methods"""
+    def setUp(self):
+        self.client = OctopartClient(api_key='TEST_TOKEN')
+
+    def test_get_brand(self):
+        response_body = {
+            "__class__": "Brand",
+            "homepage_url": "http://www.newark.com",
+            "name": "Newark",
+            "uid": "98785972bc7c4fbf"
+        }
+
+        with octopart_mock_response(response_body):
+            brand = api.get_brand('98785972bc7c4fbf')
+            assert brand.uid == '98785972bc7c4fbf'
+
+    def test_search_brand(self):
+        response_body = {
+            "__class__": "SearchResponse",
+            "results": [
+                {
+                    "__class__": "SearchResult",
+                    "item": {
+                        "__class__": "Brand",
+                        "homepage_url": "http://www.newark.com",
+                        "name": "Newark",
+                        "uid": "98785972bc7c4fbf"
+                    }
+                }
+            ]
+        }
+
+        with octopart_mock_response(response_body) as response:
+            [brand] = api.search_brand('Newark')
+            assert brand.name == 'Newark'
+            called_url = request_url_from_request_mock(response)
+            assert '/brands/search' in called_url
+            assert 'q=Newark' in called_url
+
+
+class PartsTests(TestCase):
     def setUp(self):
         self.old_octopart_key = os.getenv('OCTOPART_API_KEY', "")
         os.environ['OCTOPART_API_KEY'] = 'TEST_KEY'
@@ -38,28 +76,28 @@ class APITests(unittest.TestCase):
 
         results = api.match(['RUM001L02T2CL'])
 
-        self.assertEqual(len(results), 1)
+        assert len(results) == 1
         result = results[0]
-        self.assertTrue(isinstance(result, PartsMatchResult))
+        assert isinstance(result, models.PartsMatchResult)
 
-        self.assertEqual(len(result.parts), 1)
+        assert len(result.parts) == 1
         part = result.parts[0]
-        self.assertTrue(isinstance(part, Part))
-        self.assertEqual(part.mpn, 'RUM001L02T2CL')
-        self.assertEqual(part.manufacturer, 'Rohm')
+        assert isinstance(part, models.Part)
+        assert part.mpn == 'RUM001L02T2CL'
+        assert part.manufacturer == 'Rohm'
 
-        self.assertEqual(len(part.offers), 19)
+        assert len(part.offers) == 19
         offer = part.offers[0]
-        self.assertTrue(isinstance(offer, PartOffer))
+        assert isinstance(offer, models.PartOffer)
 
-        self.assertEqual(offer.prices, {
+        assert offer.prices == {
             'USD': {
                 8000: 0.05250,
                 16000: 0.04463,
                 24000: 0.04200,
                 56000: 0.03938
             }
-        })
+        }
 
     @responses.activate
     def test_parts_match_extra_fields(self):
@@ -82,11 +120,11 @@ class APITests(unittest.TestCase):
             imagesets=True,
             descriptions=True)
 
-        self.assertEqual(len(results), 1)
+        assert len(results) == 1
         result = results[0]
-        self.assertEqual(len(result.parts), 1)
+        assert len(result.parts) == 1
         part = result.parts[0]
-        self.assertEqual(part.mpn, 'RUM001L02T2CL')
+        assert part.mpn == 'RUM001L02T2CL'
 
         assert part.specs['packaging'].value == 'Tape & Reel (TR)'
         assert part.specs['lead_free_status'].value == 'Lead Free'
@@ -94,16 +132,16 @@ class APITests(unittest.TestCase):
         assert part.specs['mounting_style'].value == 'Surface Mount'
         assert part.specs['polarity'].value == 'N-Channel'
 
-        self.assertEqual(len(part.imagesets), 3)
+        assert len(part.imagesets) == 3
         imageset = part.imagesets[0]
-        self.assertEqual(imageset.image_urls, {
+        assert imageset.image_urls == {
             'medium_image': 'https://sigma.octopart.com/67745388/image/Rohm-RUM001L02T2CL.jpg',  # noqa
             'small_image': 'https://sigma.octopart.com/66829790/image/Rohm-RUM001L02T2CL.jpg',  # noqa
             'swatch_image': 'https://sigma.octopart.com/23299222/image/Rohm-RUM001L02T2CL.jpg'  # noqa
-        })
+        }
 
-        self.assertEqual(len(part.descriptions), 9)
-        self.assertEqual(part.descriptions, [
+        assert len(part.descriptions) == 9
+        assert part.descriptions == [
             'MOSFET, N-CH, 20V, 0.1A, VMT',
             'Trans MOSFET N-CH 20V 0.1A 3-Pin VMT T/R',
             'MOSFET N-channel 20V 100mA SOT723',
@@ -113,7 +151,7 @@ class APITests(unittest.TestCase):
             'Trans MOSFET N-CH 20V 0.1A 3-Pin VMT T/R',
             'Trans MOSFET N-CH 20V 0.1A 3-Pin VMT T/R',
             'RUM001L02 Series 20 V 3.5 Ohm 100 mA N-Ch. Small Signal Mosfet - SOT-723 (VMT3)'  # noqa
-        ])
+        ]
 
     @responses.activate
     def test_parts_search(self):
@@ -131,20 +169,20 @@ class APITests(unittest.TestCase):
         )
 
         result = api.search("DISTANCE METER, LASER, 100M")
-        self.assertTrue(isinstance(result, PartsSearchResult))
+        assert isinstance(result, models.PartsSearchResult)
 
-        self.assertEqual(len(result.parts), 8)
+        assert len(result.parts) == 8
         part = result.parts[0]
-        self.assertTrue(isinstance(part, Part))
-        self.assertEqual(part.mpn, 'FLUKE-424D')
-        self.assertEqual(part.manufacturer, 'Fluke')
+        assert isinstance(part, models.Part)
+        assert part.mpn == 'FLUKE-424D'
+        assert part.manufacturer == 'Fluke'
 
-        self.assertEqual(len(part.offers), 19)
+        assert len(part.offers) == 19
         offer = part.offers[0]
-        self.assertTrue(isinstance(offer, PartOffer))
-        self.assertEqual(offer.prices, {
+        assert isinstance(offer, models.PartOffer)
+        assert offer.prices == {
             'USD': {1: 424.99000}
-        })
+        }
 
     @responses.activate
     def test_match_parts_by_seller(self):
@@ -164,17 +202,17 @@ class APITests(unittest.TestCase):
 
         results = api.match(['RUM001L02T2CL'], sellers=['Digi-Key', 'Mouser'])
 
-        self.assertEqual(len(results), 2)
+        assert len(results) == 2
         for result in results:
-            self.assertTrue(isinstance(result, PartsMatchResult))
+            assert isinstance(result, models.PartsMatchResult)
             for part in result.parts:
-                self.assertEqual(part.mpn, 'RUM001L02T2CL')
+                assert part.mpn == 'RUM001L02T2CL'
                 sellers = [offer.seller for offer in part.offers]
                 # NOTE: shouldn't assert that other sellers are absent from
                 # this list, since they actually can be present in responses
                 # that include the `sellers` field in queries.
-                self.assertIn('Digi-Key', sellers)
-                self.assertIn('Mouser', sellers)
+                assert 'Digi-Key' in sellers
+                assert 'Mouser' in sellers
 
     def test_match_include_directives(self):
         with octopart_mock_response() as rsps:
@@ -191,3 +229,139 @@ class APITests(unittest.TestCase):
             assert '%22mpn_or_sku%22%3A+%22MPN2%22' in called_url
             assert 'include%5B%5D=imagesets' in called_url  # %5B%5D is []
             assert 'include%5B%5D=cad_models' in called_url
+
+
+class CategoryTests(TestCase):
+    def setUp(self):
+        self.old_octopart_key = os.getenv('OCTOPART_API_KEY', "")
+        os.environ['OCTOPART_API_KEY'] = 'TEST_KEY'
+
+    def tearDown(self):
+        os.environ['OCTOPART_API_KEY'] = self.old_octopart_key
+
+    def test_search_category(self):
+        response_body = {
+            "__class__": "SearchResponse",
+            "results": [
+                {
+                    "__class__": "SearchResult",
+                    "item": {
+                        "__class__": "Category",
+                        "ancestor_names": [
+                            "Electronic Parts",
+                            "Passive Components"
+                        ],
+                        "ancestor_uids": [
+                            "8a1e4714bb3951d9",
+                            "7542b8484461ae85"
+                        ],
+                        "children_uids": [
+                            "917d5c77a0544aba",
+                            "cda900a3fc9b166e",
+                            "01fbccf130c0da3c",
+                            "6939a433502db2fe",
+                            "a2f46ffe9b377933",
+                            "c841054bf1801386",
+                            "91ee5ce4a8204a29"
+                        ],
+                        "name": "Resistors",
+                        "num_parts": 1998389,
+                        "parent_uid": "7542b8484461ae85",
+                        "uid": "5c6a91606d4187ad"
+                    }
+                }
+            ]
+        }
+
+        with octopart_mock_response(response_body) as rsps:
+            [category] = api.search_category(query='Resistors')
+            assert category.uid == '5c6a91606d4187ad'
+
+            called_url = request_url_from_request_mock(rsps)
+            assert 'q=Resistors' in called_url
+
+    def test_get_category(self):
+        response_body = {
+            "__class__": "Category",
+            "ancestor_names": [
+                "Electronic Parts",
+                "Passive Components"
+            ],
+            "ancestor_uids": [
+                "8a1e4714bb3951d9",
+                "7542b8484461ae85"
+            ],
+            "children_uids": [
+                "917d5c77a0544aba",
+                "cda900a3fc9b166e",
+                "01fbccf130c0da3c",
+                "6939a433502db2fe",
+                "a2f46ffe9b377933",
+                "c841054bf1801386",
+                "91ee5ce4a8204a29"
+            ],
+            "name": "Resistors",
+            "num_parts": 1998389,
+            "parent_uid": "7542b8484461ae85",
+            "uid": "5c6a91606d4187ad"
+        }
+
+        with octopart_mock_response(response_body) as rsps:
+            category = api.get_category('5c6a91606d4187ad')
+            assert category.name == 'Resistors'
+
+            called_url = request_url_from_request_mock(rsps)
+            assert '5c6a91606d4187ad' in called_url
+
+
+class SellerTests(TestCase):
+    def setUp(self):
+        self.old_octopart_key = os.getenv('OCTOPART_API_KEY', "")
+        os.environ['OCTOPART_API_KEY'] = 'TEST_KEY'
+
+    def tearDown(self):
+        os.environ['OCTOPART_API_KEY'] = self.old_octopart_key
+
+    def test_search_seller(self):
+        response_body = {
+            "__class__": "SearchResponse",
+            "results": [
+                {
+                    "__class__": "SearchResult",
+                    "item": {
+                        "__class__": "Seller",
+                        "display_flag": "US",
+                        "has_ecommerce": True,
+                        "homepage_url": "http://www.digikey.com",
+                        "id": "459",
+                        "name": "Digi-Key",
+                        "uid": "2c3be9310496fffc"
+                    }
+                }
+            ]
+        }
+
+        with octopart_mock_response(response_body) as rsps:
+            [seller] = api.search_seller(query='Digi-Key')
+            assert seller.uid == '2c3be9310496fffc'
+
+            called_url = request_url_from_request_mock(rsps)
+            assert 'q=Digi-Key' in called_url
+
+    def test_get_seller(self):
+        response_body = {
+            "__class__": "Seller",
+            "display_flag": "US",
+            "has_ecommerce": True,
+            "homepage_url": "http://www.digikey.com",
+            "id": "459",
+            "name": "Digi-Key",
+            "uid": "2c3be9310496fffc"
+        }
+
+        with octopart_mock_response(response_body) as rsps:
+            seller = api.get_seller('2c3be9310496fffc')
+            assert seller.name == 'Digi-Key'
+
+            called_url = request_url_from_request_mock(rsps)
+            assert '2c3be9310496fffc' in called_url
