@@ -2,14 +2,14 @@ import copy
 import json
 import logging
 import os
-from typing import Any, Collection, Dict, List, Tuple
+import typing as t
 
 import requests
 
 from octopart import models
 from octopart.exceptions import OctopartError
 from octopart.decorators import retry
-from .utils import sortby_param_str_from_list
+from octopart.utils import sortby_param_str_from_list
 
 logger = logging.getLogger(__name__)
 
@@ -25,8 +25,10 @@ class OctopartClient(object):
     to this constructor.
     """
 
-    def __init__(
-            self, api_key: str=None, base_url: str=DEFAULT_BASE_URL) -> None:
+    def __init__(self,
+                 api_key: t.Optional[str] = None,
+                 base_url: t.Optional[str] = DEFAULT_BASE_URL
+                 ) -> None:
         """
         Kwargs:
             api_key (str): Octopart API key
@@ -42,15 +44,14 @@ class OctopartClient(object):
         self.base_url = base_url
 
     @property
-    def api_key_param(self) -> Dict[str, str]:
+    def api_key_param(self) -> t.Dict[str, str]:
         return {'apikey': self.api_key}
 
     @retry
-    def _request(
-            self,
-            path: str,
-            params: Dict[str, Any]=None
-            ) -> Any:
+    def _request(self,
+                 path: str,
+                 params: t.Dict[str, t.Any]=None
+                 ) -> t.Any:
         params = copy.copy(params or {})
         params.update(self.api_key_param)
 
@@ -60,14 +61,13 @@ class OctopartClient(object):
         response.raise_for_status()
         return response.json()
 
-    def match(
-            self,
-            queries: Collection[models.PartsMatchQuery],
-            exact_only: bool=False,
-            includes: List[str]=None,
-            hide: List[str]=None,
-            show: List[str]=None,
-            ) -> Dict[str, Any]:
+    def match(self,
+              queries: t.Collection[models.PartsMatchQuery],
+              exact_only: t.Optional[bool] = False,
+              includes: t.Optional[t.List[str]] = None,
+              hide: t.Optional[t.List[str]] = None,
+              show: t.Optional[t.List[str]] = None,
+              ) -> t.Dict[str, t.Any]:
         """
         Search for parts by MPN, brand, SKU, or other fields, sending up to 20
         queries at the same time. See `models.PartsMatchQuery` for the full
@@ -107,7 +107,7 @@ class OctopartClient(object):
 
         # required params for /part/match API call, as per
         # https://octopart.com/api/docs/v3/rest-api#endpoints-parts-match
-        params: Dict[str, Any] = {'queries': json.dumps(queries)}
+        params: t.Dict[str, t.Any] = {'queries': json.dumps(queries)}
 
         # since there is a maximum URL length, only set options parameters in
         # the URL when using the non-default value
@@ -122,18 +122,17 @@ class OctopartClient(object):
 
         return self._request('/parts/match', params=params)
 
-    def search(
-            self,
-            query: str,  # maps to "q" parameter in Octopart API
-            start: int=0,
-            limit: int=10,
-            sortby: List[Tuple[str, str]]=None,
-            filter_fields: dict=None,
-            filter_queries: dict=None,
-            includes: List[str]=None,
-            hide: List[str]=None,
-            show: List[str]=None,
-            ) -> dict:
+    def search(self,
+               query: str,  # maps to "q" parameter in Octopart API
+               start: int=0,
+               limit: int=10,
+               sortby: t.Optional[t.List[t.Tuple[str, str]]] = None,
+               filter_fields: t.Optional[dict] = None,
+               filter_queries: t.Optional[dict] = None,
+               includes: t.Optional[t.List[str]] = None,
+               hide: t.Optional[t.List[str]] = None,
+               show: t.Optional[t.List[str]] = None,
+               ) -> dict:
         """
         Search for parts, using more fields and filter options than 'match'.
 
@@ -213,13 +212,12 @@ class OctopartClient(object):
         """
         return self._request(f'/brands/{uid}')
 
-    def search_brand(
-            self,
-            query: str,
-            start: int=None,
-            limit: int=None,
-            sortby: List[Tuple[str, str]]=None,
-            ) -> dict:
+    def search_brand(self,
+                     query: str,
+                     start: t.Optional[int] = None,
+                     limit: t.Optional[int] = None,
+                     sortby: t.Optional[t.List[t.Tuple[str, str]]] = None,
+                     ) -> dict:
         """Search for manufacturer names by keyword.
 
         From the API docs: "This is the ideal method to use to go from a brand
@@ -259,14 +257,13 @@ class OctopartClient(object):
         """
         return self._request(f'/categories/{uid}')
 
-    def search_category(
-            self,
-            query: str,
-            start: int=None,
-            limit: int=None,
-            sortby:  List[Tuple[str, str]]=None,
-            include_imagesets: bool=None,
-            ) -> dict:
+    def search_category(self,
+                        query: str,
+                        start: t.Optional[int] = None,
+                        limit: t.Optional[int] = None,
+                        sortby: t.Optional[t.List[t.Tuple[str, str]]] = None,
+                        include_imagesets: t.Optional[bool] = None,
+                        ) -> dict:
         """Search for Octopart categories by keyword.
 
         This calls the /categories/search endpoint of the Octopart API:
@@ -296,13 +293,12 @@ class OctopartClient(object):
         """
         return self._request(f'/sellers/{uid}')
 
-    def search_seller(
-            self,
-            query: str,
-            start: int=None,
-            limit: int=None,
-            sortby: List[Tuple[str, str]]=None,
-            ) -> dict:
+    def search_seller(self,
+                      query: str,
+                      start: t.Optional[int] = None,
+                      limit: t.Optional[int] = None,
+                      sortby: t.Optional[t.List[t.Tuple[str, str]]] = None,
+                      ) -> dict:
         """Search for Octopart sellers by keyword.
 
         This calls the /sellers/search endpoint of the Octopart API:
