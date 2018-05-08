@@ -133,7 +133,7 @@ class PartsMatchResult():
         return [Part(part) for part in self._result['items']]
 
     def __repr__(self):
-        return '<PartsMatchResult: hits=%s, query=%s>' % (
+        return '<PartsMatchResult: hits=%s query=%s>' % (
             self._result['hits'],
             self._result['reference'])
 
@@ -348,7 +348,7 @@ class PartOffer():
         return self._offer['seller']['name']
 
     def __repr__(self):
-        return '<Offer sku=%s, seller=%s, in_stock=%s>' % (
+        return '<Offer sku=%s seller=%s in_stock_quantity=%s>' % (
             self.sku,
             self.seller,
             self._offer['in_stock_quantity'])
@@ -371,7 +371,7 @@ class Brand():
         return self._brand['homepage_url']
 
     def __repr__(self):
-        return '<Brand uid=%s, name=%s, url=%s>' % (
+        return '<Brand uid=%s name=%s url=%s>' % (
             self.uid,
             self.name,
             self.homepage_url
@@ -408,7 +408,7 @@ class Category(BaseModel):
     # imagesets = ListType()
 
     def __repr__(self):
-        return '<Category uid=%s, name=%s>' % (
+        return '<Category uid=%s name=%s>' % (
             self.uid,
             self.name,
         )
@@ -427,7 +427,7 @@ class Seller(BaseModel):
     has_ecommerce = BooleanType()
 
     def __repr__(self):
-        return '<Seller uid=%s, name=%s>' % (
+        return '<Seller uid=%s name=%s>' % (
             self.uid,
             self.name,
         )
