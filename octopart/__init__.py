@@ -15,4 +15,6 @@ def setupLogger(logger):
 setupLogger(logger)
 
 
-from .api import match, search  # noqa
+from .api import (  # noqa
+    match, search, get_seller, search_seller,
+    get_category, search_category, get_brand, search_brand)
