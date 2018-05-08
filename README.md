@@ -10,6 +10,7 @@ Python Client for Octopart API v3
 
 ```sh
 pip install octopart
+
 export OCTOPART_API_KEY="secret"
 ```
 
