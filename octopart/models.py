@@ -153,7 +153,7 @@ class PartsSearchResult():
     def parts(self):
         return [
             Part(result['item'])
-            for result in self._result['results']
+            for result in self._result.get('results', [])
         ]
 
     def __repr__(self):

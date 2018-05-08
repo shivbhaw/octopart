@@ -2,19 +2,23 @@
 
 
 from contextlib import contextmanager
+import json
 import re
 
 import responses
 
 
 @contextmanager
-def octopart_mock_response():
+def octopart_mock_response(data=None):
     """Boilerplate for mocking all Octopart API URLs with an empty response"""
+    if data is None:
+        data = {"results": []}
+
     with responses.RequestsMock() as rsps:
         rsps.add(
             responses.GET,
             re.compile(r'https://octopart\.com/api/v3/.*'),
-            body='{"results": []}',
+            body=json.dumps(data),
             status=200,
             content_type='application/json'
         )

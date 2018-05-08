@@ -36,9 +36,9 @@ def wrap_exception_in(exc_type, catch=Exception):
     return wrapper
 
 
-# Retry when RequestException is raised,
+# Retry when RequestException is raised.
 # wait 2^x * 100 milliseconds between each retry,
-# wait up to 10 seconds,
+# wait up to 10 seconds between each retry,
 # and stop retrying after 20 total seconds.
 exponential_backoff = retrying.retry(
     retry_on_exception=lambda exc: isinstance(exc, RequestException),

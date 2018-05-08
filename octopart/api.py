@@ -8,12 +8,12 @@ to various fields.
 
 from concurrent.futures import ThreadPoolExecutor
 import itertools
-from typing import Dict, List, Tuple
+import typing as t
 
-from . import models
-from . import utils
-from .client import OctopartClient
-from .directives import include_directives_from_kwargs
+from octopart import models
+from octopart import utils
+from octopart.client import OctopartClient
+from octopart.directives import include_directives_from_kwargs
 
 MAX_REQUEST_THREADS = 10
 
@@ -29,15 +29,15 @@ class MatchType(object):
     MPN_OR_SKU = 'mpn_or_sku'
 
 
-def match(
-        mpns: List[str],
-        match_types: Tuple[str]=None,
-        partial_match: bool=False,
-        limit: int=3,
-        sellers: Tuple[str]=None,
-        show: List[str]=None,
-        hide: List[str]=None,
-        **kwargs) -> List[models.PartsMatchResult]:
+def match(mpns: t.List[str],
+          match_types: t.Optional[t.Tuple[str]] = None,
+          partial_match: t.Optional[bool] = False,
+          limit: t.Optional[int] = 3,
+          sellers: t.Optional[t.Tuple[str]] = None,
+          show: t.Optional[t.List[str]] = None,
+          hide: t.Optional[t.List[str]] = None,
+          **kwargs
+          ) -> t.List[models.PartsMatchResult]:
     """
     Match a list of MPNs against Octopart.
 
@@ -115,16 +115,16 @@ def match(
     ]
 
 
-def search(
-        query: str,
-        start: int=0,
-        limit: int=10,
-        sortby: List[Tuple[str, str]]=None,
-        filter_fields: Dict[str, str]=None,
-        filter_queries: Dict[str, str]=None,
-        show: List[str]=None,
-        hide: List[str]=None,
-        **kwargs) -> models.PartsSearchResult:
+def search(query: str,
+           start: int=0,
+           limit: int=10,
+           sortby: t.List[t.Tuple[str, str]]=None,
+           filter_fields: t.Dict[str, str]=None,
+           filter_queries: t.Dict[str, str]=None,
+           show: t.List[str]=None,
+           hide: t.List[str]=None,
+           **kwargs
+           ) -> models.PartsSearchResult:
     """
     Search Octopart for a general keyword (and optional filters).
 
@@ -171,12 +171,11 @@ def get_brand(uid: str) -> models.Brand:
     return models.Brand(brand_dict)
 
 
-def search_brand(
-        query: str,
-        start: int=None,
-        limit: int=None,
-        sortby: List[Tuple[str, str]]=None,
-        ) -> List[models.Brand]:
+def search_brand(query: str,
+                 start: t.Optional[int] = None,
+                 limit: t.Optional[int] = None,
+                 sortby: t.Optional[t.List[t.Tuple[str, str]]] = None,
+                 ) -> t.List[models.Brand]:
     client = OctopartClient()
     res = client.search_brand(
         query=query, start=start, limit=limit, sortby=sortby)
@@ -189,12 +188,11 @@ def get_category(uid: str) -> models.Category:
     return models.Category(cat_dict, strict=False)
 
 
-def search_category(
-        query: str,
-        start: int=None,
-        limit: int=None,
-        sortby: List[Tuple[str, str]]=None,
-        ) -> List[models.Category]:
+def search_category(query: str,
+                    start: t.Optional[int] = None,
+                    limit: t.Optional[int] = None,
+                    sortby: t.Optional[t.List[t.Tuple[str, str]]] = None,
+                    ) -> t.List[models.Category]:
     client = OctopartClient()
     res = client.search_category(
         query=query, start=start, limit=limit, sortby=sortby)
@@ -210,12 +208,11 @@ def get_seller(uid: str) -> models.Seller:
     return models.Seller(slr_dict, strict=False)
 
 
-def search_seller(
-        query: str,
-        start: int=None,
-        limit: int=None,
-        sortby: List[Tuple[str, str]]=None,
-        ) -> List[models.Seller]:
+def search_seller(query: str,
+                  start: t.Optional[int] = None,
+                  limit: t.Optional[int] = None,
+                  sortby: t.Optional[t.List[t.Tuple[str, str]]] = None,
+                  ) -> t.List[models.Seller]:
     client = OctopartClient()
     res = client.search_seller(
         query=query, start=start, limit=limit, sortby=sortby)
