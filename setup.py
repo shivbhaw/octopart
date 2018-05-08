@@ -7,9 +7,9 @@ setuptools.setup(
     author="Sean Adler",
     author_email="sean@tempoautomation.com",
     license="MIT",
-    url="",
+    url="https://tempoautomation.github.io/octopart/",
     description="Python client for Octopart API v3",
-    long_description="",
+    long_description="Python client for Octopart API v3",
     packages=setuptools.find_packages(exclude=['contrib', 'docs', 'tests']),
     classifiers=[
         "Development Status :: 3 - Alpha",
