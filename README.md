@@ -40,19 +40,18 @@ python -m mypy octopart --ignore-missing-imports
 
 # What does it do
 
-`octopart` requests data from [Octopart API](https://octopart.com/api/docs/v3/rest-api) endpoints,
-and returns response data as Python objects. Not all endpoints have been implemented.
+`octopart` is an [Octopart API](https://octopart.com/api/docs/v3/rest-api) client for Python 3.6+. API response data is returned as Python objects that attempt to make it easy to get the data you want. Not all endpoints have been implemented.
 
 ## Top-level API
 
-* `octopart.api.match()`
-* `octopart.api.search()`
-* `octopart.api.get_brand()`
-* `octopart.api.search_brand()`
-* `octopart.api.get_category()`
-* `octopart.api.search_category()`
-* `octopart.api.get_seller()`
-* `octopart.api.search_seller()`
+* `octopart.match()`
+* `octopart.search()`
+* `octopart.get_seller()`
+* `octopart.search_seller()`
+* `octopart.get_category()`
+* `octopart.search_category()`
+* `octopart.get_brand()`
+* `octopart.search_brand()`
 
 ## Data models
 
@@ -60,6 +59,6 @@ and returns response data as Python objects. Not all endpoints have been impleme
 * `octopart.models.PartsSearchResult`
 * `octopart.models.Part`
 * `octopart.models.PartOffer`
-* `octopart.models.Brand`
-* `octopart.models.Category`
 * `octopart.models.Seller`
+* `octopart.models.Category`
+* `octopart.models.Brand`
