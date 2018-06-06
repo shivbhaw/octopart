@@ -237,7 +237,7 @@ class Spec():
         return self._name
 
     @property
-    def value(self):
+    def value(self) -> t.List[str]:
         val = self._spec['value']
         if isinstance(val, list):
             return val
