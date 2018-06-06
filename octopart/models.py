@@ -3,6 +3,8 @@ Types that wrap responses from the Octopart API
 and make various attributes easier to access.
 """
 
+import typing as t
+
 from schematics.exceptions import ConversionError, DataError, ValidationError
 from schematics.models import Model
 from schematics.types import BooleanType, IntType, StringType
@@ -188,14 +190,12 @@ class Part():
         return self._part['category_uids']
 
     @property
-    def specs(self):
-        _specs = self._part.get('specs')
-        if _specs:
-            return Specs({
-                name: Spec(name, spec)
-                for name, spec in _specs.items()
-            })
-        return None
+    def specs(self) -> t.Dict[str, 'Spec']:
+        _specs = self._part.get('specs', {})
+        return {
+            name: Spec(name, spec)
+            for name, spec in _specs.items()
+        }
 
     @property
     def imagesets(self):
@@ -227,15 +227,6 @@ class Part():
         return '<Part mpn=%s>' % self.mpn
 
 
-class Specs(dict):
-    """
-    XXX: Copied for backwards-compatibility while we phase out use of `Specs`
-    in tempocom.
-    """
-    def to_dict(self):
-        return {name: spec.value for name, spec in self.items()}
-
-
 class Spec():
     def __init__(self, name, spec):
         self._name = name
@@ -246,11 +237,11 @@ class Spec():
         return self._name
 
     @property
-    def value(self):
+    def value(self) -> t.List[str]:
         val = self._spec['value']
-        if isinstance(val, list) and len(val) == 1:
-            return val[0]
-        return val
+        if isinstance(val, list):
+            return val
+        return [val]
 
     @property
     def display_value(self):

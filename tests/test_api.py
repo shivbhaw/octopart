@@ -126,11 +126,11 @@ class PartsTests(TestCase):
         part = result.parts[0]
         assert part.mpn == 'RUM001L02T2CL'
 
-        assert part.specs['packaging'].value == 'Tape & Reel (TR)'
-        assert part.specs['lead_free_status'].value == 'Lead Free'
-        assert part.specs['rohs_status'].value == 'Compliant'
-        assert part.specs['mounting_style'].value == 'Surface Mount'
-        assert part.specs['polarity'].value == 'N-Channel'
+        assert part.specs['packaging'].value == ['Tape & Reel (TR)']
+        assert part.specs['lead_free_status'].value == ['Lead Free']
+        assert part.specs['rohs_status'].value == ['Compliant']
+        assert part.specs['mounting_style'].value == ['Surface Mount']
+        assert part.specs['polarity'].value == ['N-Channel']
 
         assert len(part.imagesets) == 3
         imageset = part.imagesets[0]
