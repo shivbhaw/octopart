@@ -2,6 +2,7 @@ Python Client for Octopart API v3
 =================================
 
 [![CircleCI](https://circleci.com/gh/tempoautomation/octopart.svg?style=svg&circle-token=aee3e352a57741869fc0d3a62a18d64b8f4f23f9)](https://circleci.com/gh/tempoautomation/octopart)
+[![codecov](https://codecov.io/gh/tempoautomation/octopart/branch/master/graph/badge.svg)](https://codecov.io/gh/tempoautomation/octopart)
 
 
 # Quickstart
